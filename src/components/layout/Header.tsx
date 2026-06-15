@@ -12,6 +12,8 @@ const navLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
+const HEADER_HEIGHT = 64;
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -26,7 +28,10 @@ export default function Header() {
     e.preventDefault();
     setMobileOpen(false);
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - HEADER_HEIGHT;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
 
   return (

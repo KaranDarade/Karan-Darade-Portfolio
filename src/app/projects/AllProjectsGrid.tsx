@@ -57,7 +57,7 @@ export default function AllProjectsGrid({ projects }: { projects: Project[] }) {
             <select
               value={sort}
               onChange={(e) => { setSort(e.target.value as SortKey); setPage(1); }}
-              className="appearance-none pl-9 pr-8 py-2.5 rounded-xl bg-card border border-card-border text-foreground text-sm focus:outline-none focus:border-primary/50 transition-colors cursor-pointer"
+              className="appearance-none pl-9 pr-8 py-2.5 rounded-xl bg-card border border-card-border text-foreground text-sm focus:outline-none focus:border-primary/50 transition-colors cursor-pointer dark:bg-slate-800 dark:border-slate-600"
             >
               <option value="newest">Newest to Oldest</option>
               <option value="oldest">Oldest to Newest</option>
