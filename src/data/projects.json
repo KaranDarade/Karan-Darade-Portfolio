@@ -5,7 +5,14 @@
     "slug": "ultima-creative-studio",
     "description": "A modern, animated landing page for a creative studio built with React 19 and Vite 8. Features Framer Motion animations and Tailwind CSS 4 styling.",
     "detailedDescription": "A sleek, single-page brand showcase for Ultima Creative Studio that presents the studio's identity, services, and portfolio work through a polished, component-based architecture. Built with the latest React 19 and Vite 8 for maximum performance, it features smooth Framer Motion scroll and hover animations, Tailwind CSS v4 utility-first styling, and a responsive design that works flawlessly across all devices. This project solves the challenge of creating a fast, visually impressive brand presence for a creative agency with minimal setup and maximum performance.",
-    "techStack": ["React 19", "TypeScript", "Vite 8", "Tailwind CSS 4", "Framer Motion 12", "Lucide React"],
+    "techStack": [
+      "React 19",
+      "TypeScript",
+      "Vite 8",
+      "Tailwind CSS 4",
+      "Framer Motion 12",
+      "Lucide React"
+    ],
     "features": [
       "Single-page responsive creative studio landing page",
       "Framer Motion scroll and hover animations",
@@ -17,7 +24,7 @@
     ],
     "githubUrl": "https://github.com/KaranDarade/Ultima-Landing-Page",
     "deploymentUrl": "https://ultima-landing-page-gilt.vercel.app/",
-    "imageUrl": "",
+    "imageUrl": "/projects/ultima-creative-studio.png",
     "featured": true,
     "order": 1,
     "createdAt": "2025-01-15T00:00:00.000Z"
@@ -28,7 +35,14 @@
     "slug": "3d-portfolio",
     "description": "A personal portfolio for a 3D creator with engaging animations, Tailwind CSS styling, and a visually immersive layout that showcases artistic work.",
     "detailedDescription": "A personal portfolio website branded 'KD - 3D Creator' built with React 19 and Vite 8. The portfolio showcases 3D design work, skills, and professional background in a visually engaging single-page layout. It uses Tailwind CSS 3 for responsive utility-first styling and Framer Motion 12 for smooth page transitions and animations. This project solves the challenge of presenting 3D artistry in a web format that is both performant and aesthetically aligned with the creator's brand, making it easy for potential clients to explore the artist's capabilities.",
-    "techStack": ["React 19", "TypeScript", "Vite 8", "Tailwind CSS 3", "Framer Motion 12", "Lucide React"],
+    "techStack": [
+      "React 19",
+      "TypeScript",
+      "Vite 8",
+      "Tailwind CSS 3",
+      "Framer Motion 12",
+      "Lucide React"
+    ],
     "features": [
       "Personal portfolio for 3D artist/creator",
       "Framer Motion page transitions and animations",
@@ -39,7 +53,7 @@
     ],
     "githubUrl": "https://github.com/KaranDarade/3D-Portfolio",
     "deploymentUrl": "https://3-d-portfolio-jade-delta.vercel.app/",
-    "imageUrl": "",
+    "imageUrl": "/projects/3d-portfolio.png",
     "featured": true,
     "order": 2,
     "createdAt": "2025-02-10T00:00:00.000Z"
@@ -50,7 +64,12 @@
     "slug": "adsolence-digital-agency",
     "description": "A full-featured digital agency landing page with services, portfolio gallery, testimonials carousel, and a complete brand experience.",
     "detailedDescription": "A comprehensive digital agency landing page for 'Adsolence — Digital Solutions & Growth', built entirely with vanilla HTML, CSS, and JavaScript. It presents a professional agency brand with multiple sections including six core service offerings (brand identity, web development, mobile apps, digital marketing, analytics, cybersecurity), an about section with company stats, a filterable portfolio grid, a 4-step process timeline, client testimonials carousel, a contact form, and a client trust bar. This template solves the need for a complete, ready-to-deploy agency website that can be easily customized without any build tools or frameworks, making it ideal for agencies looking for a professional online presence.",
-    "techStack": ["HTML5", "CSS3", "JavaScript (Vanilla ES6+)", "Vercel"],
+    "techStack": [
+      "HTML5",
+      "CSS3",
+      "JavaScript (Vanilla ES6+)",
+      "Vercel"
+    ],
     "features": [
       "6 service offerings with detailed descriptions",
       "Filterable project portfolio gallery (Web Design, Apps, Branding)",
@@ -63,7 +82,7 @@
     ],
     "githubUrl": "https://github.com/KaranDarade/Adsolence-",
     "deploymentUrl": "https://adsolence.vercel.app/",
-    "imageUrl": "",
+    "imageUrl": "/projects/adsolence-digital-agency.png",
     "featured": true,
     "order": 3,
     "createdAt": "2025-03-05T00:00:00.000Z"
@@ -74,7 +93,17 @@
     "slug": "stackcraft-blog",
     "description": "A full-stack developer-focused tech blog built with Next.js 16, featuring MDX posts, tag filtering, full-text search, and a dark glassmorphism design.",
     "detailedDescription": "A full-stack developer-focused tech blog where engineers read between the lines. Built with Next.js 16 App Router, it features 12 in-depth MDX blog posts covering AI, ML, cloud infrastructure, tech finance, DevOps, and tech jobs. The blog includes static site generation with pagination, tag-based filtering, full-text search across titles and excerpts, a reading progress bar, view counter via Neon PostgreSQL, and newsletter subscription. It solves the problem of creating a performant, content-rich technical publication with a dark-first glassmorphism design, comprehensive testing (Jest + Playwright), and automated CI/CD pipelines.",
-    "techStack": ["Next.js 16", "TypeScript 5", "Tailwind CSS 4", "Framer Motion 12", "MDX", "PostgreSQL (Neon)", "Drizzle ORM", "Jest", "Playwright"],
+    "techStack": [
+      "Next.js 16",
+      "TypeScript 5",
+      "Tailwind CSS 4",
+      "Framer Motion 12",
+      "MDX",
+      "PostgreSQL (Neon)",
+      "Drizzle ORM",
+      "Jest",
+      "Playwright"
+    ],
     "features": [
       "12 in-depth MDX blog posts on AI, ML, infrastructure, finance, jobs, DevOps",
       "Pagination — 6 posts per page with auto-adjusting layout",
@@ -91,7 +120,7 @@
     ],
     "githubUrl": "https://github.com/KaranDarade/Stackcraft-Blog",
     "deploymentUrl": "https://stackcraft-blog.vercel.app/",
-    "imageUrl": "",
+    "imageUrl": "/projects/stackcraft-blog.png",
     "featured": true,
     "order": 4,
     "createdAt": "2025-04-01T00:00:00.000Z"
@@ -102,7 +131,17 @@
     "slug": "groceries-organic-store",
     "description": "A fully responsive multi-page organic grocery store frontend with Bootstrap 5, product catalog, testimonial slider, and 8 designed pages.",
     "detailedDescription": "A fully responsive, multi-page organic grocery store frontend website template built with HTML5, CSS3, Bootstrap 5, jQuery, and SCSS. It features 8 designed pages including home, about, products, features, blog, testimonials, contact, and a custom 404 page. The template includes a hero carousel with animated text overlays, a product catalog with category tab filtering (Vegetables, Fruits, Dairy, Baked Foods, Herbs & Spices), 3D flip feature cards, a testimonial slider using Owl Carousel, a blog grid, and a dark-themed footer with newsletter signup. It solves the need for a professional, ready-to-use grocery e-commerce UI that can be integrated with any backend technology stack.",
-    "techStack": ["HTML5", "CSS3", "Bootstrap 5", "JavaScript", "jQuery", "SCSS/Sass", "Owl Carousel 2", "WOW.js", "Animate.css"],
+    "techStack": [
+      "HTML5",
+      "CSS3",
+      "Bootstrap 5",
+      "JavaScript",
+      "jQuery",
+      "SCSS/Sass",
+      "Owl Carousel 2",
+      "WOW.js",
+      "Animate.css"
+    ],
     "features": [
       "8 fully designed pages (Home, About, Products, Features, Blog, Testimonials, Contact, 404)",
       "Hero carousel with animated text overlays and CTA buttons",
@@ -118,7 +157,7 @@
     ],
     "githubUrl": "https://github.com/KaranDarade/Groceries-Frontend",
     "deploymentUrl": "https://groceries-fresh.netlify.app/",
-    "imageUrl": "",
+    "imageUrl": "/projects/groceries-organic-store.png",
     "featured": true,
     "order": 5,
     "createdAt": "2025-04-20T00:00:00.000Z"
@@ -129,7 +168,14 @@
     "slug": "vertex-studio",
     "description": "A design agency landing page with WebGL shader effects, case studies with video backgrounds, and a premium visual experience.",
     "detailedDescription": "A design agency landing page for Vertex Studio built with React 18, TypeScript, Vite 8, and Tailwind CSS 3. It features custom WebGL shader effects (Swirl, ChromaFlow, FlutedGlass, FilmGrain) in the hero background for a distinctive, immersive visual experience. The page includes a responsive navigation with a live London clock display, a studio about section, case studies with video backgrounds and expandable hover buttons, and a footer with newsletter signup. It solves the challenge of creating a premium, technically impressive agency website that simultaneously demonstrates creative and development capabilities, making a bold statement about the studio's expertise.",
-    "techStack": ["React 18", "TypeScript", "Vite 8", "Tailwind CSS 3", "WebGL Shaders", "Lucide React"],
+    "techStack": [
+      "React 18",
+      "TypeScript",
+      "Vite 8",
+      "Tailwind CSS 3",
+      "WebGL Shaders",
+      "Lucide React"
+    ],
     "features": [
       "Full-viewport hero with animated WebGL shader overlay background",
       "Responsive navigation with live London clock display",
@@ -142,7 +188,7 @@
     ],
     "githubUrl": "https://github.com/KaranDarade/Vertex-Studio",
     "deploymentUrl": "https://vertex-studio-alpha.vercel.app/",
-    "imageUrl": "",
+    "imageUrl": "/projects/vertex-studio.png",
     "featured": true,
     "order": 6,
     "createdAt": "2025-05-15T00:00:00.000Z"
@@ -153,7 +199,18 @@
     "slug": "grocery-shopping-site",
     "description": "A full-stack grocery e-commerce platform with Next.js 14, Express.js, PostgreSQL, user auth, cart management, and PDF invoice generation.",
     "detailedDescription": "A full-stack grocery e-commerce platform organized as a Turborepo monorepo with a Next.js 14 frontend and an Express.js/Prisma backend. The frontend features a modern grocery shopping experience with product browsing by category (vegetables, fruits, dairy, beverages, snacks, bakery, spices, meat), a fully functional shopping cart, user authentication, order management, and PDF invoice generation. The backend provides RESTful APIs with JWT authentication, Google OAuth, PostgreSQL database via Prisma ORM, and security middleware (helmet, CORS). Docker Compose orchestrates the PostgreSQL database and backend services for local development. It solves the complete problem of online grocery ordering with fresh food delivery, secure user accounts, and a seamless shopping experience.",
-    "techStack": ["Next.js 14", "React 18", "TypeScript 5", "Tailwind CSS 3", "Framer Motion 11", "Express.js 4", "Prisma ORM", "PostgreSQL", "JWT", "Docker Compose"],
+    "techStack": [
+      "Next.js 14",
+      "React 18",
+      "TypeScript 5",
+      "Tailwind CSS 3",
+      "Framer Motion 11",
+      "Express.js 4",
+      "Prisma ORM",
+      "PostgreSQL",
+      "JWT",
+      "Docker Compose"
+    ],
     "features": [
       "Full grocery e-commerce with multiple product categories",
       "Hero section with promotional offers and CTA",
@@ -172,7 +229,7 @@
     ],
     "githubUrl": "https://github.com/KaranDarade/Grocery-Shopping-Site",
     "deploymentUrl": "https://grocery-shopping-site-frontend.vercel.app/",
-    "imageUrl": "",
+    "imageUrl": "/projects/grocery-shopping-site.png",
     "featured": false,
     "order": 7,
     "createdAt": "2025-06-01T00:00:00.000Z"
