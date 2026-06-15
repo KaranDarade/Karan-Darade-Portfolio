@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, Send, ArrowUpRight, Globe, ExternalLink } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import AnimatedSection from "@/components/providers/AnimatedSection";
 
@@ -11,8 +11,8 @@ const contactInfo = [
 ];
 
 const socialLinks = [
-  { href: "https://github.com/KaranDarade", icon: GithubIcon, label: "GitHub", username: "@KaranDarade" },
-  { href: "https://www.linkedin.com/in/karan-darade-4a2392245/", icon: LinkedinIcon, label: "LinkedIn", username: "Karan Darade" },
+  { href: "https://github.com/KaranDarade", icon: GithubIcon, label: "GitHub", username: "@KaranDarade", stats: "7+ repos" },
+  { href: "https://www.linkedin.com/in/karan-darade-4a2392245/", icon: LinkedinIcon, label: "LinkedIn", username: "Karan Darade", stats: "Connect" },
 ];
 
 export default function ContactSection() {
@@ -34,8 +34,9 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="lg:col-span-2 space-y-4">
+            <p className="text-sm font-medium text-foreground mb-3">Contact Info</p>
             {contactInfo.map((item) => {
               const Wrapper = item.href ? "a" : "div";
               const wrapperProps = item.href ? { href: item.href, target: "_blank", rel: "noopener noreferrer" } : {};
@@ -44,43 +45,48 @@ export default function ContactSection() {
                 <Wrapper
                   key={item.label}
                   {...wrapperProps}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-card border border-card-border hover:border-primary/20 transition-all duration-200 group"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                     <item.icon className="h-5 w-5 text-primary" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="text-xs text-muted">{item.label}</p>
-                    <p className="text-sm font-medium text-foreground">{item.value}</p>
+                    <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{item.value}</p>
                   </div>
+                  {item.href && <ArrowUpRight className="h-4 w-4 text-muted group-hover:text-primary transition-colors" />}
                 </Wrapper>
               );
             })}
           </div>
 
           <div className="space-y-4">
+            <p className="text-sm font-medium text-foreground mb-3">Social</p>
             {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-card-border hover:border-primary/20 transition-all duration-200 group"
+                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
               >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <link.icon className="h-5 w-5 text-primary" />
                 </div>
-                <div>
+                <div className="flex-1">
                   <p className="text-xs text-muted">{link.label}</p>
-                  <p className="text-sm font-medium text-foreground">{link.username}</p>
+                  <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{link.username}</p>
                 </div>
+                <span className="text-[10px] text-muted bg-accent px-2 py-0.5 rounded-full">{link.stats}</span>
               </a>
             ))}
-            <div className="p-6 rounded-xl bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-rose-500/10 border border-primary/20 mt-4">
-              <p className="text-sm text-muted mb-2">Prefer email?</p>
+
+            <div className="p-5 rounded-xl bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-rose-500/10 border border-primary/20 mt-4">
+              <Send className="h-5 w-5 text-primary mb-2" />
+              <p className="text-sm text-muted mb-1">Prefer email?</p>
               <a
                 href="mailto:daradekaran123@gmail.com"
-                className="text-lg font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                className="text-base font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
               >
                 daradekaran123@gmail.com
               </a>

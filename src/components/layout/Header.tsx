@@ -43,9 +43,9 @@ export default function Header() {
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, "#home")}
-            className="text-xl font-bold tracking-tight"
+            className="text-lg sm:text-xl font-['Bricolage_Grotesque',_system-ui] font-black tracking-wide"
           >
-            <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent italic">
               Karan Darade
             </span>
           </a>
