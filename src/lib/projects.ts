@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import os from "os";
 
 export interface Project {
   id: string;
@@ -17,7 +18,16 @@ export interface Project {
   createdAt: string;
 }
 
-const dataFilePath = path.join(process.cwd(), "src", "data", "projects.json");
+const BUNDLED_PATH = path.join(process.cwd(), "src", "data", "projects.json");
+
+const DATA_PATH = (() => {
+  try {
+    fs.accessSync(path.dirname(BUNDLED_PATH), fs.constants.W_OK);
+    return BUNDLED_PATH;
+  } catch {
+    return path.join(os.tmpdir(), "portfolio-projects.json");
+  }
+})();
 
 let cache: { data: Project[]; ts: number } | null = null;
 const CACHE_TTL = 10_000;
@@ -25,7 +35,8 @@ const CACHE_TTL = 10_000;
 function readProjects(): Project[] {
   const now = Date.now();
   if (cache && now - cache.ts < CACHE_TTL) return cache.data;
-  const raw = fs.readFileSync(dataFilePath, "utf-8");
+  const src = fs.existsSync(DATA_PATH) ? DATA_PATH : BUNDLED_PATH;
+  const raw = fs.readFileSync(src, "utf-8");
   const data: Project[] = JSON.parse(raw);
   cache = { data, ts: now };
   return data;
@@ -37,6 +48,10 @@ function invalidateCache(updated?: Project[]) {
   } else {
     cache = null;
   }
+}
+
+export function getWritablePath(): string {
+  return DATA_PATH;
 }
 
 export function getAllProjects(): Project[] {
@@ -61,7 +76,7 @@ export function getProjectById(id: string): Project | undefined {
 }
 
 export function saveProjects(projects: Project[]): void {
-  fs.writeFileSync(dataFilePath, JSON.stringify(projects, null, 2), "utf-8");
+  fs.writeFileSync(DATA_PATH, JSON.stringify(projects, null, 2), "utf-8");
   invalidateCache(projects);
 }
 
