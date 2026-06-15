@@ -190,7 +190,7 @@
     "deploymentUrl": "https://vertex-studio-alpha.vercel.app/",
     "imageUrl": "/projects/vertex-studio.png",
     "featured": true,
-    "order": 6,
+    "order": 5,
     "createdAt": "2025-05-15T00:00:00.000Z"
   },
   {
@@ -231,7 +231,7 @@
     "deploymentUrl": "https://grocery-shopping-site-frontend.vercel.app/",
     "imageUrl": "/projects/grocery-shopping-site.png",
     "featured": false,
-    "order": 7,
+    "order": 0,
     "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {

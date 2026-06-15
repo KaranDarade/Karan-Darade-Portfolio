@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ExternalLink, ArrowLeft, Calendar, Hash } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import Link from "next/link";
+import Image from "next/image";
 import { getProjectBySlug, getAllProjects } from "@/lib/projects";
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
@@ -97,6 +98,27 @@ export default async function ProjectDetailPage({ params }: Props) {
             Visit GitHub Repo
           </a>
         </div>
+
+        {project.imageUrl && (
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-accent mb-12 border border-card-border shadow-lg">
+            {project.imageUrl.endsWith('.svg') ? (
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 896px, 1200px"
+              />
+            )}
+          </div>
+        )}
 
         <div className="prose prose-sm dark:prose-invert max-w-none mb-12">
           <div className="p-6 rounded-2xl bg-card border border-card-border">

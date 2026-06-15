@@ -62,7 +62,8 @@ export function getFeaturedProjects(): Project[] {
   const projects = readProjects();
   return projects
     .filter((p) => p.featured)
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 6);
 }
 
 export function getProjectBySlug(slug: string): Project | undefined {
