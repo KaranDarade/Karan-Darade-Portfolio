@@ -6,6 +6,7 @@ import Image from "next/image";
 import { getProjectBySlug, getAllProjects } from "@/lib/projects";
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
+import AdminProjectActions from "@/components/admin/AdminProjectActions";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -40,13 +41,16 @@ export default async function ProjectDetailPage({ params }: Props) {
       <div className="absolute bottom-24 left-1/4 w-4 h-4 border-2 border-fuchsia-500/10 rounded-full animate-float-delayed pointer-events-none" style={{ animationDelay: "1s" }} />
       <div className="absolute top-1/2 left-12 w-2 h-2 rounded-full bg-fuchsia-400/20 animate-pulse-soft pointer-events-none" />
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Link>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
+          <AdminProjectActions projectId={project.id} projectTitle={project.title} />
+        </div>
 
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
