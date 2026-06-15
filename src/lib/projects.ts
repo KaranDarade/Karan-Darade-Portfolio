@@ -18,22 +18,15 @@ export interface Project {
 }
 
 const BUNDLED_PATH = path.join(process.cwd(), "src", "data", "projects.json");
-
-let data: Project[] | null = null;
+const KEY = "__portfolio_data__";
 
 function load(): Project[] {
-  if (data) return data;
-  const raw = fs.readFileSync(BUNDLED_PATH, "utf-8");
-  data = JSON.parse(raw) as Project[];
-  return data;
-}
+  const g = globalThis as any;
+  if (g[KEY]) return g[KEY] as Project[];
 
-function persist() {
-  try {
-    fs.writeFileSync(BUNDLED_PATH, JSON.stringify(data, null, 2), "utf-8");
-  } catch {
-    // read-only filesystem (Vercel) — changes stay in memory for this instance
-  }
+  const raw = fs.readFileSync(BUNDLED_PATH, "utf-8");
+  g[KEY] = JSON.parse(raw) as Project[];
+  return g[KEY];
 }
 
 export function getAllProjects(): Project[] {
@@ -63,13 +56,11 @@ export function addProject(project: Omit<Project, "id" | "createdAt">): Project 
     createdAt: new Date().toISOString(),
   };
   projects.push(newProject);
-  persist();
   return newProject;
 }
 
-export function saveProjects(projects: Project[]): void {
-  data = projects;
-  persist();
+export function saveProjects(updated: Project[]): void {
+  (globalThis as any)[KEY] = updated;
 }
 
 export function updateProject(id: string, updates: Partial<Project>): Project | null {
@@ -77,7 +68,6 @@ export function updateProject(id: string, updates: Partial<Project>): Project | 
   const index = projects.findIndex((p) => p.id === id);
   if (index === -1) return null;
   projects[index] = { ...projects[index], ...updates };
-  persist();
   return projects[index];
 }
 
@@ -85,8 +75,7 @@ export function deleteProject(id: string): boolean {
   const projects = load();
   const filtered = projects.filter((p) => p.id !== id);
   if (filtered.length === projects.length) return false;
-  data = filtered;
-  persist();
+  (globalThis as any)[KEY] = filtered;
   return true;
 }
 
@@ -96,17 +85,14 @@ export function getPaginatedProjects(
   sort: "newest" | "oldest" = "newest"
 ): { projects: Project[]; total: number; totalPages: number } {
   const all = load();
-
   const sorted = [...all].sort((a, b) => {
     const diff = new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     return sort === "oldest" ? -diff : diff;
   });
-
   const total = sorted.length;
   const totalPages = Math.ceil(total / perPage) || 1;
   const start = (page - 1) * perPage;
   const projects = sorted.slice(start, start + perPage);
-
   return { projects, total, totalPages };
 }
 
