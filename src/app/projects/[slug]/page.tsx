@@ -105,7 +105,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         {project.imageUrl && (
           <div className="relative aspect-video rounded-2xl overflow-hidden bg-accent mb-12 border border-card-border shadow-lg">
-            {project.imageUrl.endsWith('.svg') ? (
+            {project.imageUrl.startsWith('data:') || project.imageUrl.endsWith('.svg') ? (
               <img
                 src={project.imageUrl}
                 alt={project.title}

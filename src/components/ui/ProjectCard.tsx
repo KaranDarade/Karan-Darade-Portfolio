@@ -55,7 +55,7 @@ export default function ProjectCard({ title, slug, description, githubUrl, deplo
           <div className="relative aspect-video bg-accent overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-fuchsia-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[1]" />
             {imageUrl ? (
-              imageUrl.endsWith('.svg') ? (
+              imageUrl.startsWith('data:') || imageUrl.endsWith('.svg') ? (
                 <img
                   src={imageUrl}
                   alt={title}
