@@ -189,8 +189,8 @@
     "githubUrl": "https://github.com/KaranDarade/Vertex-Studio",
     "deploymentUrl": "https://vertex-studio-alpha.vercel.app/",
     "imageUrl": "/projects/vertex-studio.png",
-    "featured": true,
-    "order": 5,
+    "featured": false,
+    "order": 0,
     "createdAt": "2025-05-15T00:00:00.000Z"
   },
   {
@@ -268,5 +268,36 @@
     "order": 0,
     "id": "mqfgm5hkejgtg6ufi8m",
     "createdAt": "2026-06-15T17:00:50.888Z"
+  },
+  {
+    "title": "ERP System",
+    "slug": "erp-system",
+    "description": "A single-page enterprise resource planning dashboard built with React, TypeScript, and Vite. It simulates eight operational ERP modules with live data, inter...",
+    "detailedDescription": "A single-page enterprise resource planning dashboard built with React, TypeScript, and Vite. It simulates eight operational ERP modules with live data, interactive actions, charts, and a real-time notification stream — all in one workspace.",
+    "techStack": [
+      "TypeScript",
+      "CSS",
+      "HTML",
+      "React",
+      "Expo",
+      "Vite"
+    ],
+    "features": [
+      "8 interactive modules — each with an action button that updates live state",
+      "Real-time notification stream — simulated live events every 4.5 seconds",
+      "Analytics charts — department vs. attendance bar chart, revenue vs. payroll area chart",
+      "Employee directory — search, filter by department, view full biodata",
+      "Data snapshots — finance, inventory, sales, and project summary panels",
+      "CSV export — download employee master data",
+      "Report generation — per-module summary with live timestamp",
+      "1,000 seeded records — realistic Indian employee data across 10 departments"
+    ],
+    "githubUrl": "https://github.com/KaranDarade/ERP-System",
+    "deploymentUrl": "https://erp-system-brown-one.vercel.app/",
+    "imageUrl": "/projects/erp-system.png",
+    "featured": true,
+    "order": 5,
+    "id": "mqfq9hlpuqhxmk2ifj",
+    "createdAt": "2026-06-15T21:30:56.222Z"
   }
 ]
