@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, LogOut, Pin, GripVertical, AlertCircle } from "lucide-react";
 import type { Project } from "@/lib/projects";
@@ -15,28 +15,27 @@ export default function AdminDashboard() {
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const router = useRouter();
 
-  const checkAuth = useCallback(async () => {
-    try {
-      const res = await fetch("/api/projects");
-      if (res.status === 401) {
+  useEffect(() => {
+    let cancelled = false;
+
+    async function init() {
+      const authRes = await fetch("/api/auth/check");
+      if (cancelled) return;
+      if (!authRes.ok) {
         setAuth(false);
         router.push("/admin/login");
         return;
       }
       setAuth(true);
-      const data = await res.json();
-      setProjects(data);
-    } catch {
-      setAuth(false);
-      router.push("/admin/login");
-    } finally {
-      setLoading(false);
-    }
-  }, [router]);
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+      const data = await fetch("/api/projects").then((r) => r.json());
+      if (!cancelled) setProjects(data);
+      if (!cancelled) setLoading(false);
+    }
+
+    init();
+    return () => { cancelled = true; };
+  }, [router]);
 
   const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
@@ -52,18 +51,44 @@ export default function AdminDashboard() {
   };
 
   const togglePinned = async (project: Project) => {
-    const pinned = projects.filter((p) => p.featured);
+    const pinned = projects.filter((p) => p.featured).sort((a, b) => a.order - b.order);
+
     if (!project.featured && pinned.length >= MAX_PINNED) {
-      alert(`You can only pin up to ${MAX_PINNED} projects. Unpin one first.`);
+      const oldest = pinned[pinned.length - 1];
+      await fetch(`/api/projects/${oldest.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ featured: false, order: 0 }),
+      });
+      setProjects(projects.map((p) =>
+        p.id === oldest.id ? { ...p, featured: false, order: 0 } : p
+      ));
+
+      const res = await fetch(`/api/projects/${project.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ featured: true, order: oldest.order }),
+      });
+      if (res.ok) {
+        setProjects((prev) =>
+          prev.map((p) =>
+            p.id === project.id ? { ...p, featured: true, order: oldest.order } : p
+          )
+        );
+      }
       return;
     }
+
+    const newOrder = project.featured ? 0 : pinned.length + 1;
     const res = await fetch(`/api/projects/${project.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ featured: !project.featured }),
+      body: JSON.stringify({ featured: !project.featured, order: newOrder }),
     });
     if (res.ok) {
-      setProjects(projects.map((p) => (p.id === project.id ? { ...p, featured: !p.featured } : p)));
+      setProjects(projects.map((p) =>
+        p.id === project.id ? { ...p, featured: !p.featured, order: newOrder } : p
+      ));
     }
   };
 
@@ -83,8 +108,6 @@ export default function AdminDashboard() {
     const [moved] = featured.splice(dragIndex, 1);
     featured.splice(index, 0, moved);
     const reordered = featured.map((p, i) => ({ ...p, order: i }));
-    const unfeatured = updated.filter((p) => !p.featured);
-    const merged = [...reordered, ...unfeatured];
     // update order in the original list
     for (const rp of reordered) {
       const idx = updated.findIndex((p) => p.id === rp.id);
@@ -121,7 +144,7 @@ export default function AdminDashboard() {
   return (
     <div className="pt-24 pb-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl font-bold">Manage Projects</h1>
             <p className="text-sm text-muted mt-1">
@@ -134,14 +157,14 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.push("/admin/projects/new")}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors min-h-[44px]"
             >
               <Plus className="h-4 w-4" />
               Add Project
             </button>
             <button
               onClick={handleLogout}
-              className="p-2 rounded-xl border border-card-border text-muted hover:text-foreground transition-colors"
+              className="p-3 rounded-xl border border-card-border text-muted hover:text-foreground transition-colors min-w-[44px] min-h-[44px]"
               title="Logout"
             >
               <LogOut className="h-4 w-4" />
@@ -149,7 +172,12 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {pinned.length < MAX_PINNED && (
+        {pinned.length === MAX_PINNED ? (
+          <div className="flex items-center gap-2 px-4 py-2.5 mb-6 rounded-xl bg-violet-500/10 border border-violet-500/20 text-xs text-violet-600 dark:text-violet-400">
+            <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
+            Front page is full. Pinning a new project will auto-unpin the last one.
+          </div>
+        ) : (
           <div className="flex items-center gap-2 px-4 py-2.5 mb-6 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-600 dark:text-amber-400">
             <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
             Pin {MAX_PINNED - pinned.length} more project{MAX_PINNED - pinned.length !== 1 ? "s" : ""} to fill the front page
@@ -180,21 +208,21 @@ export default function AdminDashboard() {
               </div>
               <button
                 onClick={() => togglePinned(project)}
-                className="p-1.5 rounded-lg hover:bg-amber-500/10 transition-colors"
+                className="p-2.5 rounded-lg hover:bg-amber-500/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 title={project.featured ? "Unpin" : "Pin"}
               >
                 <Pin className={cn("h-4 w-4", project.featured ? "text-amber-500 fill-amber-500" : "text-muted")} />
               </button>
               <button
                 onClick={() => router.push(`/admin/projects/${project.id}/edit`)}
-                className="p-1.5 rounded-lg hover:bg-primary/10 transition-colors"
+                className="p-2.5 rounded-lg hover:bg-primary/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 title="Edit"
               >
                 <Pencil className="h-4 w-4 text-muted hover:text-primary" />
               </button>
               <button
                 onClick={() => handleDelete(project.id, project.title)}
-                className="p-1.5 rounded-lg hover:bg-red-500/10 transition-colors"
+                className="p-2.5 rounded-lg hover:bg-red-500/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                 title="Delete"
               >
                 <Trash2 className="h-4 w-4 text-muted hover:text-red-500" />
@@ -225,21 +253,21 @@ export default function AdminDashboard() {
                   </div>
                   <button
                     onClick={() => togglePinned(project)}
-                    className="p-1.5 rounded-lg hover:bg-amber-500/10 transition-colors"
+                    className="p-2.5 rounded-lg hover:bg-amber-500/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                     title="Pin"
                   >
                     <Pin className="h-4 w-4 text-muted hover:text-amber-500" />
                   </button>
                   <button
                     onClick={() => router.push(`/admin/projects/${project.id}/edit`)}
-                    className="p-1.5 rounded-lg hover:bg-primary/10 transition-colors"
+                    className="p-2.5 rounded-lg hover:bg-primary/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                     title="Edit"
                   >
                     <Pencil className="h-4 w-4 text-muted hover:text-primary" />
                   </button>
                   <button
                     onClick={() => handleDelete(project.id, project.title)}
-                    className="p-1.5 rounded-lg hover:bg-red-500/10 transition-colors"
+                    className="p-2.5 rounded-lg hover:bg-red-500/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                     title="Delete"
                   >
                     <Trash2 className="h-4 w-4 text-muted hover:text-red-500" />

@@ -14,8 +14,8 @@ export default function EditProjectPage() {
 
   useEffect(() => {
     const init = async () => {
-      const res = await fetch("/api/projects");
-      if (res.status === 401) {
+      const authRes = await fetch("/api/auth/check");
+      if (authRes.status === 401) {
         router.push("/admin/login");
         return;
       }

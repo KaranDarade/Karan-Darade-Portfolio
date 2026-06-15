@@ -2,20 +2,31 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Plus, X } from "lucide-react";
+import { ArrowLeft, Plus, X, Loader2, CheckCircle, AlertCircle, Sparkles } from "lucide-react";
 import type { Project } from "@/lib/projects";
+import { cn } from "@/lib/utils";
 
 interface ProjectFormProps {
   initialData?: Project;
   isEditing?: boolean;
+  autoMode?: boolean;
 }
 
-export default function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
+type StepStatus = "pending" | "running" | "done" | "error";
+
+interface ProgressStep {
+  label: string;
+  status: StepStatus;
+  message?: string;
+}
+
+export default function ProjectForm({ initialData, isEditing, autoMode }: ProjectFormProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [techInput, setTechInput] = useState("");
   const [featureInput, setFeatureInput] = useState("");
+  const [progress, setProgress] = useState<ProgressStep[]>([]);
 
   const [form, setForm] = useState({
     title: initialData?.title || "",
@@ -47,12 +58,54 @@ export default function ProjectForm({ initialData, isEditing }: ProjectFormProps
     }
   };
 
+  const setStep = (index: number, status: StepStatus, message?: string) => {
+    setProgress((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], status, message };
+      return next;
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     setError("");
 
     try {
+      if (autoMode && !isEditing) {
+        setProgress([
+          { label: "Fetching repository data from GitHub", status: "running" },
+          { label: "Analyzing README and generating content", status: "pending" },
+          { label: "Capturing deployment screenshot", status: "pending" },
+          { label: "Creating project", status: "pending" },
+        ]);
+
+        const res = await fetch("/api/projects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: form.title,
+            githubUrl: form.githubUrl,
+            deploymentUrl: form.deploymentUrl,
+            autoGenerate: true,
+          }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          setStep(0, "error", data.error || "Failed");
+          setError(data.error || "Failed to create project");
+          return;
+        }
+
+        setStep(0, "done");
+        setStep(1, "done");
+        setStep(2, "done");
+        setStep(3, "done");
+        setTimeout(() => router.push("/admin/projects"), 500);
+        return;
+      }
+
       const url = isEditing
         ? `/api/projects/${initialData!.id}`
         : "/api/projects";
@@ -79,6 +132,124 @@ export default function ProjectForm({ initialData, isEditing }: ProjectFormProps
   };
 
   const update = (key: string, value: unknown) => setForm({ ...form, [key]: value });
+
+  if (autoMode && !isEditing) {
+    return (
+      <div className="pt-24 pb-20">
+        <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+          <button
+            onClick={() => router.push("/admin/projects")}
+            className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Dashboard
+          </button>
+
+          <div className="text-center mb-10">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="h-7 w-7 text-primary" />
+            </div>
+            <h1 className="text-2xl font-bold">New Project</h1>
+            <p className="text-sm text-muted mt-1">
+              Just fill in the basics — we&apos;ll handle the rest.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Project Title *</label>
+              <input
+                required
+                value={form.title}
+                onChange={(e) => update("title", e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl bg-card border border-card-border text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary/50"
+                placeholder="My Awesome Project"
+                disabled={saving}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5">GitHub Repository URL *</label>
+              <input
+                required
+                value={form.githubUrl}
+                onChange={(e) => update("githubUrl", e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl bg-card border border-card-border text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary/50"
+                placeholder="https://github.com/username/repo"
+                disabled={saving}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Deployment URL *</label>
+              <input
+                required
+                value={form.deploymentUrl}
+                onChange={(e) => update("deploymentUrl", e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl bg-card border border-card-border text-foreground placeholder:text-muted/50 focus:outline-none focus:border-primary/50"
+                placeholder="https://my-project.vercel.app"
+                disabled={saving}
+              />
+            </div>
+
+            {progress.length > 0 && (
+              <div className="space-y-3 p-4 rounded-xl bg-card border border-card-border">
+                {progress.map((step, i) => (
+                  <div key={i} className="flex items-start gap-3 text-sm">
+                    {step.status === "running" && (
+                      <Loader2 className="h-4 w-4 text-primary animate-spin mt-0.5 flex-shrink-0" />
+                    )}
+                    {step.status === "done" && (
+                      <CheckCircle className="h-4 w-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                    )}
+                    {step.status === "error" && (
+                      <AlertCircle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
+                    )}
+                    {step.status === "pending" && (
+                      <div className="h-4 w-4 rounded-full border-2 border-card-border mt-0.5 flex-shrink-0" />
+                    )}
+                    <div>
+                      <p className={cn(
+                        "text-foreground",
+                        step.status === "pending" && "text-muted/50"
+                      )}>
+                        {step.label}
+                      </p>
+                      {step.message && (
+                        <p className="text-xs text-muted mt-0.5">{step.message}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {error && (
+              <p className="text-sm text-red-500 bg-red-500/10 px-3 py-2 rounded-lg">{error}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={saving || !form.title || !form.githubUrl || !form.deploymentUrl}
+              className="w-full py-3 rounded-xl bg-primary text-white font-medium hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
+            >
+              {saving ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-4 w-4" />
+                  Auto-Create Project
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-24 pb-20">

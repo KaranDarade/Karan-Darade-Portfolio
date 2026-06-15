@@ -29,7 +29,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted leading-relaxed">
-              Developer focused on building modern, performant digital experiences.
+              Full Stack Developer focused on building modern, performant digital experiences.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-card border border-card-border text-muted hover:text-foreground hover:border-primary/30 transition-all"
+                    className="p-3 rounded-full bg-card border border-card-border text-muted hover:text-foreground hover:border-primary/30 transition-all min-w-[44px] min-h-[44px]"
                     aria-label={link.label}
                   >
                     <link.icon className="h-4 w-4" />

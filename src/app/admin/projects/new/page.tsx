@@ -9,7 +9,7 @@ export default function NewProjectPage() {
   const [auth, setAuth] = useState<boolean | null>(null);
 
   useEffect(() => {
-    fetch("/api/projects").then((res) => {
+    fetch("/api/auth/check").then((res) => {
       if (res.status === 401) {
         router.push("/admin/login");
       } else {
@@ -28,5 +28,5 @@ export default function NewProjectPage() {
 
   if (!auth) return null;
 
-  return <ProjectForm />;
+  return <ProjectForm autoMode />;
 }

@@ -1,8 +1,14 @@
 import AllProjectsGrid from "./AllProjectsGrid";
-import { getAllProjects } from "@/lib/projects";
+import { getPaginatedProjects } from "@/lib/projects";
 
 export default function ProjectsPage() {
-  const projects = getAllProjects();
+  const { projects, total, totalPages } = getPaginatedProjects(1, 6, "newest");
 
-  return <AllProjectsGrid projects={projects} />;
+  return (
+    <AllProjectsGrid
+      initialProjects={projects}
+      initialTotal={total}
+      initialTotalPages={totalPages}
+    />
+  );
 }

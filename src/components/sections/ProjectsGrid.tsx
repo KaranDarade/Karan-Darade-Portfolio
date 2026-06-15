@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Settings } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
@@ -10,11 +11,17 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
     <AnimatedSection id="projects" className="py-20 sm:py-28 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-20 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-0 w-60 h-60 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-4 h-4 border border-primary/10 rounded-full" />
-      <div className="absolute bottom-1/4 left-1/4 w-3 h-3 bg-primary/10 rotate-45" />
+
+      <div className="absolute top-32 left-12 w-3 h-3 border border-violet-400/20 rotate-45 animate-drift" />
+      <div className="absolute top-1/2 right-16 w-2 h-2 rounded-full bg-fuchsia-400/25 animate-pulse-soft" />
+      <div className="absolute bottom-28 left-1/4 w-4 h-4 border border-primary/10 rounded-full animate-float-delayed" />
+      <div className="absolute top-2/3 right-1/4 w-3 h-3 bg-violet-400/10 rotate-12 animate-drift" style={{ animationDelay: "2s" }} />
+      <div className="absolute bottom-40 right-1/3 w-4 h-4 border-2 border-fuchsia-500/10 rotate-45 animate-float-delayed" style={{ animationDelay: "1s" }} />
+      <div className="absolute top-16 right-1/4 w-1.5 h-1.5 rounded-full bg-violet-400/20 animate-pulse-soft" style={{ animationDelay: "0.5s" }} />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 relative">
+          <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-20 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <p className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
             My Work
           </p>
@@ -43,12 +50,12 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
             <Settings className="h-4 w-4" />
             Customize Pinned Projects
           </a>
-          <a
+          <Link
             href="/projects"
             className="text-sm text-muted hover:text-primary transition-colors"
           >
             View all projects &rarr;
-          </a>
+          </Link>
         </div>
       </div>
     </AnimatedSection>

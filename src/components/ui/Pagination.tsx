@@ -18,7 +18,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         className={cn(
-          "p-2 rounded-lg border border-card-border bg-card transition-all duration-200",
+          "p-3 rounded-lg border border-card-border bg-card transition-all duration-200 min-w-[44px] min-h-[44px] flex items-center justify-center",
           currentPage === 1
             ? "opacity-40 cursor-not-allowed"
             : "hover:border-primary/30 hover:text-primary"
@@ -31,7 +31,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           key={page}
           onClick={() => onPageChange(page)}
           className={cn(
-            "w-9 h-9 rounded-lg text-sm font-medium transition-all duration-200",
+            "w-11 h-11 rounded-lg text-sm font-medium transition-all duration-200",
             page === currentPage
               ? "bg-primary text-white"
               : "border border-card-border bg-card text-muted hover:border-primary/30 hover:text-foreground"
@@ -44,7 +44,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         className={cn(
-          "p-2 rounded-lg border border-card-border bg-card transition-all duration-200",
+          "p-3 rounded-lg border border-card-border bg-card transition-all duration-200 min-w-[44px] min-h-[44px] flex items-center justify-center",
           currentPage === totalPages
             ? "opacity-40 cursor-not-allowed"
             : "hover:border-primary/30 hover:text-primary"

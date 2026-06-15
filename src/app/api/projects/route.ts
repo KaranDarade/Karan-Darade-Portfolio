@@ -1,8 +1,22 @@
-import { NextResponse } from "next/server";
-import { getAllProjects, addProject } from "@/lib/projects";
+import { NextRequest, NextResponse } from "next/server";
+import { getAllProjects, getPaginatedProjects, addProject } from "@/lib/projects";
 import { getAuthStatus } from "@/lib/auth";
+import { parseRepoUrl, getRepoInfo, getRepoLanguages, getRepoReadme } from "@/lib/github";
+import { generateSlug, generateDescription, generateDetailedDescription, extractTechStack, extractFeatures } from "@/lib/autoGenerate";
+import { captureScreenshot } from "@/lib/screenshot";
+import type { SortKey } from "@/lib/projects";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const page = searchParams.get("page");
+  const perPage = searchParams.get("perPage");
+  const sort = (searchParams.get("sort") || "newest") as SortKey;
+
+  if (page && perPage) {
+    const result = getPaginatedProjects(parseInt(page), parseInt(perPage), sort);
+    return NextResponse.json(result);
+  }
+
   const projects = getAllProjects();
   return NextResponse.json(projects);
 }
@@ -15,9 +29,67 @@ export async function POST(request: Request) {
 
   try {
     const data = await request.json();
+
+    if (data.autoGenerate) {
+      const { title, githubUrl, deploymentUrl } = data;
+      if (!title || !githubUrl || !deploymentUrl) {
+        return NextResponse.json({ error: "Title, GitHub URL, and Deployment URL are required" }, { status: 400 });
+      }
+
+      const repo = parseRepoUrl(githubUrl);
+      if (!repo) {
+        return NextResponse.json({ error: "Invalid GitHub URL" }, { status: 400 });
+      }
+
+      const slug = generateSlug(title);
+
+      let repoInfo = { description: "", topics: [] as string[] };
+      let languages: string[] = [];
+      let readme = "";
+
+      try {
+        [repoInfo, languages, readme] = await Promise.all([
+          getRepoInfo(repo.owner, repo.repo),
+          getRepoLanguages(repo.owner, repo.repo),
+          getRepoReadme(repo.owner, repo.repo).catch(() => ""),
+        ]);
+      } catch {
+        // proceed with partial data if GitHub fetch fails
+      }
+
+      const description = generateDescription(readme, repoInfo.description);
+      const detailedDescription = generateDetailedDescription(readme);
+      const techStack = extractTechStack(languages, readme);
+      const features = extractFeatures(readme, techStack);
+
+      let imageUrl = "";
+      try {
+        imageUrl = await captureScreenshot(deploymentUrl, slug);
+      } catch {
+        // screenshot may fail, continue without it
+      }
+
+      const project = addProject({
+        title,
+        slug,
+        description,
+        detailedDescription,
+        techStack,
+        features,
+        githubUrl,
+        deploymentUrl,
+        imageUrl,
+        featured: true,
+        order: 0,
+      });
+
+      return NextResponse.json(project, { status: 201 });
+    }
+
     const project = addProject(data);
     return NextResponse.json(project, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Invalid request";
+    return NextResponse.json({ error: message }, { status: 400 });
   }
 }

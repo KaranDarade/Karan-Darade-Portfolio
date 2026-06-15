@@ -233,5 +233,40 @@
     "featured": false,
     "order": 7,
     "createdAt": "2025-06-01T00:00:00.000Z"
+  },
+  {
+    "title": "Book Inventory System",
+    "slug": "book-inventory-system",
+    "description": "Book Inventory Management System",
+    "detailedDescription": "A complete React application to manage book inventories, including full CRUD functionality (Create, Read, Update, Delete) and API integration.\n\n-   Browse Books: View a responsive table of all books fetched from an API. -   Book Details: Detailed view for individual books with description and metadata. -   Add Book: Form with validation to add new books to the inventory. -   Edit Book: Update existing book details. -   Delete Book: Remove books with a confirmation dialog. -   Search: Filter books by title or author instantly. -   Responsive Design: Optimized for Desktop, Tablet, and Mobile.\n\n-   Frontend: React (Vite) -   Styling: Tailwind CSS -   Routing: React Router DOM (v7) -   State Management: React Context API -   HTTP Client: Axios -   Icons: Lucide React\n\n3.  Start the development server:          The app will run at http://localhost:5173.",
+    "techStack": [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "React",
+      "Tailwind CSS",
+      "Netlify",
+      "Axios",
+      "Vite"
+    ],
+    "features": [
+      "Browse Books: View a responsive table of all books fetched from an API.",
+      "Book Details: Detailed view for individual books with description and metadata.",
+      "Add Book: Form with validation to add new books to the inventory.",
+      "Edit Book: Update existing book details.",
+      "Delete Book: Remove books with a confirmation dialog.",
+      "Search: Filter books by title or author instantly.",
+      "Responsive Design: Optimized for Desktop, Tablet, and Mobile.",
+      "Frontend: React (Vite)",
+      "Styling: Tailwind CSS",
+      "Routing: React Router DOM (v7)"
+    ],
+    "githubUrl": "https://github.com/KaranDarade/book-inventory-system",
+    "deploymentUrl": "https://nextgenesis-book-7dd411.netlify.app/",
+    "imageUrl": "/projects/book-inventory-system.png",
+    "featured": false,
+    "order": 0,
+    "id": "mqfgm5hkejgtg6ufi8m",
+    "createdAt": "2026-06-15T17:00:50.888Z"
   }
 ]

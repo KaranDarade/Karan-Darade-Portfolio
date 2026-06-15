@@ -11,7 +11,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
     <button
       onClick={toggleTheme}
       className={cn(
-        "relative p-2 rounded-full transition-all duration-300 hover:scale-110",
+        "relative p-3 rounded-full transition-all duration-300 hover:scale-110 min-w-[44px] min-h-[44px]",
         "bg-accent hover:bg-accent-hover border border-card-border",
         "text-foreground/70 hover:text-foreground",
         className

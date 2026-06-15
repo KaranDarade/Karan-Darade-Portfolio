@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useCallback } from "react";
 import { ExternalLink } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import Link from "next/link";
@@ -18,6 +19,23 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ title, slug, description, githubUrl, deploymentUrl, imageUrl, index }: ProjectCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const tiltX = (y - 0.5) * -8;
+    const tiltY = (x - 0.5) * 8;
+    cardRef.current.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -26,14 +44,22 @@ export default function ProjectCard({ title, slug, description, githubUrl, deplo
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative"
     >
-      <div className="relative rounded-2xl bg-card border border-card-border overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="relative rounded-2xl bg-card border border-card-border overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+        style={{ transition: "transform 0.15s ease-out" }}
+      >
         <Link href={`/projects/${slug}`} className="block">
           <div className="relative aspect-video bg-accent overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-fuchsia-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[1]" />
             {imageUrl ? (
               <Image
                 src={imageUrl}
                 alt={title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
@@ -48,6 +74,7 @@ export default function ProjectCard({ title, slug, description, githubUrl, deplo
                 </div>
               </div>
             )}
+            <div className="absolute -inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
         </Link>

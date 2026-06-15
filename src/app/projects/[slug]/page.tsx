@@ -32,8 +32,13 @@ export default async function ProjectDetailPage({ params }: Props) {
   if (!project) notFound();
 
   return (
-    <div className="pt-24 pb-20">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div className="pt-24 pb-20 relative overflow-hidden">
+      <div className="absolute top-20 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-20 right-0 w-60 h-60 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-32 right-12 w-3 h-3 border border-violet-400/20 rotate-45 animate-drift pointer-events-none" />
+      <div className="absolute bottom-24 left-1/4 w-4 h-4 border-2 border-fuchsia-500/10 rounded-full animate-float-delayed pointer-events-none" style={{ animationDelay: "1s" }} />
+      <div className="absolute top-1/2 left-12 w-2 h-2 rounded-full bg-fuchsia-400/20 animate-pulse-soft pointer-events-none" />
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8"

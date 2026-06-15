@@ -28,6 +28,15 @@ export default function Header() {
     scrollToSection(id);
   };
 
+  const goHome = () => {
+    setMobileOpen(false);
+    if (window.location.pathname === "/") {
+      scrollToSection("home");
+    } else {
+      window.location.href = "/";
+    }
+  };
+
   return (
     <header
       className={cn(
@@ -40,7 +49,7 @@ export default function Header() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <button
-            onClick={() => scrollToSection("home")}
+            onClick={goHome}
             className="text-lg sm:text-xl font-['Bricolage_Grotesque',_system-ui] font-black tracking-wide"
           >
             <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent italic">
@@ -65,7 +74,7 @@ export default function Header() {
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2 rounded-full bg-accent hover:bg-accent-hover border border-card-border text-foreground/70 hover:text-foreground transition-all"
+              className="p-3 rounded-full bg-accent hover:bg-accent-hover border border-card-border text-foreground/70 hover:text-foreground transition-all min-w-[44px] min-h-[44px]"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -81,7 +90,7 @@ export default function Header() {
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className="block text-sm font-medium text-muted hover:text-foreground transition-colors py-2"
+                className="block text-sm font-medium text-muted hover:text-foreground transition-colors py-3 min-h-[44px]"
               >
                 {link.label}
               </button>

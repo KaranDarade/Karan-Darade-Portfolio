@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CursorGlow from "@/components/effects/CursorGlow";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,11 +22,11 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Karan Darade | Developer",
-  description: "Portfolio of Karan Darade — a developer building modern, performant web experiences.",
+  title: "Karan Darade | Full Stack Developer",
+  description: "Portfolio of Karan Darade — a full stack developer building modern, performant web experiences.",
   openGraph: {
-    title: "Karan Darade | Developer",
-    description: "Portfolio of Karan Darade — a developer building modern, performant web experiences.",
+    title: "Karan Darade | Full Stack Developer",
+    description: "Portfolio of Karan Darade — a full stack developer building modern, performant web experiences.",
     type: "website",
     locale: "en_IN",
   },
@@ -39,11 +40,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ThemeProvider>
+          <CursorGlow />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

@@ -21,8 +21,16 @@ export default function ContactSection() {
       <div className="absolute top-1/3 left-0 w-72 h-72 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
 
+      <div className="absolute top-16 right-12 w-3 h-3 border border-violet-400/20 rotate-45 animate-drift" />
+      <div className="absolute bottom-24 left-1/4 w-4 h-4 border-2 border-fuchsia-500/10 rounded-full animate-float-delayed" style={{ animationDelay: "1.2s" }} />
+      <div className="absolute top-1/3 right-1/4 w-2 h-2 rounded-full bg-fuchsia-400/20 animate-pulse-soft" />
+      <div className="absolute bottom-1/3 left-12 w-4 h-4 border border-primary/10 skew-x-12 animate-drift" style={{ animationDelay: "2.5s" }} />
+      <div className="absolute top-2/3 left-1/3 w-3 h-3 bg-violet-400/15 rotate-45 animate-float-delayed" style={{ animationDelay: "0.5s" }} />
+      <div className="absolute bottom-16 right-1/4 w-1.5 h-1.5 rounded-full bg-violet-400/20 animate-pulse-soft" style={{ animationDelay: "1.8s" }} />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 relative">
+          <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-20 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <p className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
             Contact
           </p>
@@ -82,15 +90,17 @@ export default function ContactSection() {
               </a>
             ))}
 
-            <div className="p-5 rounded-xl bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-rose-500/10 border border-primary/20 mt-4">
-              <Send className="h-5 w-5 text-primary mb-2" />
-              <p className="text-sm text-muted mb-1">Prefer email?</p>
-              <a
-                href="mailto:daradekaran123@gmail.com"
-                className="text-base font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-              >
-                daradekaran123@gmail.com
-              </a>
+            <div className="gradient-border rounded-xl mt-4">
+              <div className="p-5 rounded-xl bg-card">
+                <Send className="h-5 w-5 text-primary mb-2" />
+                <p className="text-sm text-muted mb-1">Prefer email?</p>
+                <a
+                  href="mailto:daradekaran123@gmail.com"
+                  className="text-base font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                >
+                  daradekaran123@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
