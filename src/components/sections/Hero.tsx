@@ -1,12 +1,12 @@
 "use client";
 
-import { ArrowDown, ExternalLink, Code2, Palette, Zap, Sparkles } from "lucide-react";
+import { ArrowDown, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 const marqueeItems = [
-  "React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion",
-  "Node.js", "PostgreSQL", "Prisma", "WebGL", "Figma",
+  "✦ Design", "✦ Build", "✦ Deploy", "✦ Repeat",
+  "✦ Create", "✦ Innovate", "✦ Ship", "✦ Scale",
 ];
 
 export default function Hero() {
@@ -19,9 +19,6 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-violet-500/5 via-transparent to-transparent pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-violet-500/8 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/3 left-10 w-2 h-2 rounded-full bg-violet-400/30" />
-      <div className="absolute top-2/3 right-20 w-3 h-3 rounded-full bg-fuchsia-400/20" />
-      <div className="absolute bottom-1/3 left-1/4 w-1.5 h-1.5 rounded-full bg-violet-400/25" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
         <motion.div
@@ -53,28 +50,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-lg sm:text-xl text-muted mb-6 font-light"
+            className="text-lg sm:text-xl text-muted mb-8 font-light"
           >
             Developer
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex flex-wrap gap-3 mb-8 justify-center lg:justify-start"
-          >
-            {[
-              { icon: Code2, label: "Frontend" },
-              { icon: Zap, label: "Backend" },
-              { icon: Palette, label: "Design" },
-              { icon: Sparkles, label: "Creative" },
-            ].map((item) => (
-              <span key={item.label} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-card border border-card-border text-muted">
-                <item.icon className="h-3 w-3 text-primary" />
-                {item.label}
-              </span>
-            ))}
-          </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -127,20 +106,18 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-card-border/50 bg-accent/30 py-3">
-        <div className="marquee-track flex gap-12 whitespace-nowrap">
-          <div className="flex gap-12 marquee-content">
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-card-border/50 bg-accent/30 py-2.5">
+        <div className="marquee-track flex gap-16 whitespace-nowrap">
+          <div className="flex gap-16 marquee-content">
             {marqueeItems.map((item) => (
-              <span key={item} className="inline-flex items-center gap-3 text-sm text-muted/60 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+              <span key={item} className="inline-flex items-center gap-3 text-sm text-muted/50 font-light tracking-wide">
                 {item}
               </span>
             ))}
           </div>
-          <div className="flex gap-12 marquee-content" aria-hidden="true">
+          <div className="flex gap-16 marquee-content" aria-hidden="true">
             {marqueeItems.map((item) => (
-              <span key={`dup-${item}`} className="inline-flex items-center gap-3 text-sm text-muted/60 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+              <span key={`dup-${item}`} className="inline-flex items-center gap-3 text-sm text-muted/50 font-light tracking-wide">
                 {item}
               </span>
             ))}
@@ -153,7 +130,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.5 }}
         onClick={scrollToProjects}
-        className="absolute bottom-20 left-1/2 -translate-x-1/2 text-muted hover:text-foreground transition-colors animate-bounce"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 text-muted hover:text-foreground transition-colors animate-bounce"
         aria-label="Scroll down"
       >
         <ArrowDown className="h-5 w-5" />

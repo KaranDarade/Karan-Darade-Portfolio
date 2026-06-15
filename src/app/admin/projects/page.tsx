@@ -2,9 +2,11 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Pencil, Trash2, LogOut, Star, GripVertical } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, Pin, GripVertical, AlertCircle } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import { cn } from "@/lib/utils";
+
+const MAX_PINNED = 6;
 
 export default function AdminDashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -49,7 +51,12 @@ export default function AdminDashboard() {
     router.push("/admin/login");
   };
 
-  const toggleFeatured = async (project: Project) => {
+  const togglePinned = async (project: Project) => {
+    const pinned = projects.filter((p) => p.featured);
+    if (!project.featured && pinned.length >= MAX_PINNED) {
+      alert(`You can only pin up to ${MAX_PINNED} projects. Unpin one first.`);
+      return;
+    }
     const res = await fetch(`/api/projects/${project.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -69,15 +76,28 @@ export default function AdminDashboard() {
     if (dragIndex === null || dragIndex === index) return;
 
     const updated = [...projects];
-    const [moved] = updated.splice(dragIndex, 1);
-    updated.splice(index, 0, moved);
-    setProjects(updated);
+    const featured = updated.filter((p) => p.featured).sort((a, b) => a.order - b.order);
+    if (dragIndex < featured.length && index >= featured.length) return;
+    if (dragIndex >= featured.length) return;
+
+    const [moved] = featured.splice(dragIndex, 1);
+    featured.splice(index, 0, moved);
+    const reordered = featured.map((p, i) => ({ ...p, order: i }));
+    const unfeatured = updated.filter((p) => !p.featured);
+    const merged = [...reordered, ...unfeatured];
+    // update order in the original list
+    for (const rp of reordered) {
+      const idx = updated.findIndex((p) => p.id === rp.id);
+      if (idx !== -1) updated[idx] = rp;
+    }
+    setProjects([...updated]);
     setDragIndex(index);
   };
 
   const handleDragEnd = async () => {
     setDragIndex(null);
-    const orderedIds = projects.map((p) => p.id);
+    const featured = projects.filter((p) => p.featured);
+    const orderedIds = featured.sort((a, b) => a.order - b.order).map((p) => p.id);
     await fetch("/api/projects/reorder", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -95,8 +115,8 @@ export default function AdminDashboard() {
 
   if (!auth) return null;
 
-  const featured = projects.filter((p) => p.featured).sort((a, b) => a.order - b.order);
-  const unfeatured = projects.filter((p) => !p.featured);
+  const pinned = projects.filter((p) => p.featured).sort((a, b) => a.order - b.order);
+  const unpinned = projects.filter((p) => !p.featured);
 
   return (
     <div className="pt-24 pb-20">
@@ -105,7 +125,10 @@ export default function AdminDashboard() {
           <div>
             <h1 className="text-2xl font-bold">Manage Projects</h1>
             <p className="text-sm text-muted mt-1">
-              {featured.length}/6 featured &middot; {projects.length} total
+              <span className={cn(pinned.length === MAX_PINNED ? "text-amber-500" : "text-muted")}>
+                {pinned.length}/{MAX_PINNED} pinned
+              </span>
+              {" · "}{projects.length} total
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -126,11 +149,18 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {pinned.length < MAX_PINNED && (
+          <div className="flex items-center gap-2 px-4 py-2.5 mb-6 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-600 dark:text-amber-400">
+            <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
+            Pin {MAX_PINNED - pinned.length} more project{MAX_PINNED - pinned.length !== 1 ? "s" : ""} to fill the front page
+          </div>
+        )}
+
         <div className="space-y-3">
           <p className="text-xs font-medium text-muted uppercase tracking-wider px-4">
-            Featured Projects (drag to reorder)
+            Pinned Projects ({pinned.length}/{MAX_PINNED}) &middot; drag to reorder
           </p>
-          {featured.map((project, i) => (
+          {pinned.map((project, i) => (
             <div
               key={project.id}
               draggable
@@ -143,16 +173,17 @@ export default function AdminDashboard() {
               )}
             >
               <GripVertical className="h-5 w-5 text-muted/40 cursor-grab active:cursor-grabbing flex-shrink-0" />
+              <span className="text-xs text-muted w-5 text-right flex-shrink-0">{i + 1}</span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{project.title}</p>
-                <p className="text-xs text-muted">{project.order + 1}. {project.slug}</p>
+                <p className="text-xs text-muted">{project.slug}</p>
               </div>
               <button
-                onClick={() => toggleFeatured(project)}
+                onClick={() => togglePinned(project)}
                 className="p-1.5 rounded-lg hover:bg-amber-500/10 transition-colors"
-                title="Toggle featured"
+                title={project.featured ? "Unpin" : "Pin"}
               >
-                <Star className={cn("h-4 w-4", project.featured ? "text-amber-500 fill-amber-500" : "text-muted")} />
+                <Pin className={cn("h-4 w-4", project.featured ? "text-amber-500 fill-amber-500" : "text-muted")} />
               </button>
               <button
                 onClick={() => router.push(`/admin/projects/${project.id}/edit`)}
@@ -171,26 +202,33 @@ export default function AdminDashboard() {
             </div>
           ))}
 
-          {unfeatured.length > 0 && (
+          {pinned.length === 0 && (
+            <div className="p-6 rounded-xl bg-card border border-dashed border-card-border text-center">
+              <p className="text-sm text-muted">No projects pinned yet. Pin projects below to show them on the front page.</p>
+            </div>
+          )}
+
+          {unpinned.length > 0 && (
             <>
               <p className="text-xs font-medium text-muted uppercase tracking-wider px-4 pt-6">
-                Other Projects
+                Available Projects
               </p>
-              {unfeatured.map((project) => (
+              {unpinned.map((project) => (
                 <div
                   key={project.id}
                   className="flex items-center gap-4 p-4 rounded-xl bg-card border border-card-border"
                 >
+                  <div className="w-5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{project.title}</p>
                     <p className="text-xs text-muted">{project.slug}</p>
                   </div>
                   <button
-                    onClick={() => toggleFeatured(project)}
+                    onClick={() => togglePinned(project)}
                     className="p-1.5 rounded-lg hover:bg-amber-500/10 transition-colors"
-                    title="Toggle featured"
+                    title="Pin"
                   >
-                    <Star className={cn("h-4 w-4", project.featured ? "text-amber-500 fill-amber-500" : "text-muted")} />
+                    <Pin className="h-4 w-4 text-muted hover:text-amber-500" />
                   </button>
                   <button
                     onClick={() => router.push(`/admin/projects/${project.id}/edit`)}

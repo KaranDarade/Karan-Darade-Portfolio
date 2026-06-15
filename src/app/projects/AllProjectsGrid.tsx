@@ -1,45 +1,33 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, ArrowUpDown } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
 import Pagination from "@/components/ui/Pagination";
 
 const PER_PAGE = 6;
 
-type SortKey = "newest" | "oldest" | "az" | "za";
+type SortKey = "newest" | "oldest";
 
 export default function AllProjectsGrid({ projects }: { projects: Project[] }) {
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortKey>("newest");
 
   const filtered = useMemo(() => {
-    let result = projects;
-
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      result = result.filter((p) => p.title.toLowerCase().includes(q));
-    }
+    let result = [...projects];
 
     switch (sort) {
       case "newest":
-        result = [...result].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         break;
       case "oldest":
-        result = [...result].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-        break;
-      case "az":
-        result = [...result].sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case "za":
-        result = [...result].sort((a, b) => b.title.localeCompare(a.title));
+        result.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         break;
     }
 
     return result;
-  }, [projects, search, sort]);
+  }, [projects, sort]);
 
   const totalPages = Math.ceil(filtered.length / PER_PAGE);
   const safePage = Math.min(page, Math.max(totalPages, 1));
@@ -63,17 +51,7 @@ export default function AllProjectsGrid({ projects }: { projects: Project[] }) {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-10 max-w-xl mx-auto">
-          <div className="relative flex-1 w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-              placeholder="Search projects..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-card border border-card-border text-foreground text-sm placeholder:text-muted/50 focus:outline-none focus:border-primary/50 transition-colors"
-            />
-          </div>
+        <div className="flex justify-center mb-10">
           <div className="relative">
             <ArrowUpDown className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
             <select
@@ -81,16 +59,14 @@ export default function AllProjectsGrid({ projects }: { projects: Project[] }) {
               onChange={(e) => { setSort(e.target.value as SortKey); setPage(1); }}
               className="appearance-none pl-9 pr-8 py-2.5 rounded-xl bg-card border border-card-border text-foreground text-sm focus:outline-none focus:border-primary/50 transition-colors cursor-pointer"
             >
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
-              <option value="az">A–Z</option>
-              <option value="za">Z–A</option>
+              <option value="newest">Newest to Oldest</option>
+              <option value="oldest">Oldest to Newest</option>
             </select>
           </div>
         </div>
 
         {displayed.length === 0 ? (
-          <p className="text-center text-muted py-12">No projects match your search.</p>
+          <p className="text-center text-muted py-12">No projects found.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayed.map((project, i) => (
