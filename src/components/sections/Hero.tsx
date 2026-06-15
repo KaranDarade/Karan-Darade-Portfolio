@@ -154,8 +154,10 @@ export default function Hero() {
                 />
               </div>
             </div>
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-primary/10 backdrop-blur-xl rounded-full px-4 py-1.5 border border-primary/20">
-              <span className="text-xs font-medium text-primary">Full Stack Developer</span>
+            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-violet-500/15 via-fuchsia-500/15 to-rose-500/15 backdrop-blur-xl rounded-full px-4 sm:px-5 py-1.5 sm:py-2 border border-primary/20 shadow-lg shadow-primary/5">
+              <span className="font-[family-name:var(--font-display)] text-[10px] sm:text-xs font-semibold tracking-wider bg-gradient-to-r from-violet-400 via-fuchsia-400 to-rose-400 bg-clip-text text-transparent italic">
+                Full Stack Developer
+              </span>
             </div>
           </div>
         </motion.div>
