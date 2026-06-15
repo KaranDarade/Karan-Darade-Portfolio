@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllProjects, getPaginatedProjects, addProject } from "@/lib/projects";
+import { getAllProjects, getFeaturedProjects, getPaginatedProjects, addProject } from "@/lib/projects";
 import { getAuthStatus } from "@/lib/auth";
 import { parseRepoUrl, getRepoInfo, getRepoLanguages, getRepoReadme } from "@/lib/github";
 import { generateSlug, generateDescription, generateDetailedDescription, extractTechStack, extractFeatures } from "@/lib/autoGenerate";
@@ -11,6 +11,11 @@ export async function GET(request: NextRequest) {
   const page = searchParams.get("page");
   const perPage = searchParams.get("perPage");
   const sort = (searchParams.get("sort") || "newest") as SortKey;
+  const featured = searchParams.get("featured");
+
+  if (featured === "true") {
+    return NextResponse.json(getFeaturedProjects());
+  }
 
   if (page && perPage) {
     const result = getPaginatedProjects(parseInt(page), parseInt(perPage), sort);

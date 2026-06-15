@@ -1,12 +1,24 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Settings } from "lucide-react";
 import type { Project } from "@/lib/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
 import AnimatedSection from "@/components/providers/AnimatedSection";
 
-export default function ProjectsGrid({ projects }: { projects: Project[] }) {
+export default function ProjectsGrid({ projects: initial }: { projects: Project[] }) {
+  const [projects, setProjects] = useState(initial);
+
+  useEffect(() => {
+    fetch("/api/projects?featured=true")
+      .then((r) => r.json())
+      .then((data: Project[]) => {
+        if (data.length > 0) setProjects(data);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <AnimatedSection id="projects" className="py-20 sm:py-28 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-20 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
