@@ -39,9 +39,11 @@ export default function AdminDashboard() {
 
   const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+    setProjects(prev => prev.filter((p) => p.id !== id));
     const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
-    if (res.ok) {
-      setProjects(projects.filter((p) => p.id !== id));
+    if (!res.ok) {
+      const data = await fetch("/api/projects").then((r) => r.json());
+      setProjects(data);
     }
   };
 
