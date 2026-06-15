@@ -53,7 +53,7 @@ function generatePlaceholderSvg(slug: string, title: string, outputPath: string)
   fs.writeFileSync(outputPath, svg, "utf-8");
 }
 
-export async function captureScreenshot(url: string, slug: string): Promise<string> {
+export async function captureScreenshot(url: string, slug: string, title?: string): Promise<string> {
   const outputDir = path.join(process.cwd(), "public", "projects");
   fs.mkdirSync(outputDir, { recursive: true });
 
@@ -75,7 +75,7 @@ export async function captureScreenshot(url: string, slug: string): Promise<stri
     return `/projects/${slug}.png`;
   } catch {
     const svgPath = path.join(outputDir, `${slug}.svg`);
-    generatePlaceholderSvg(slug, url.replace(/^https?:\/\//, "").replace(/\/.*$/, ""), svgPath);
+    generatePlaceholderSvg(slug, title || url.replace(/^https?:\/\//, "").replace(/\/.*$/, ""), svgPath);
     return `/projects/${slug}.svg`;
   }
 }

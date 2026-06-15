@@ -79,7 +79,7 @@ export default function AdminDashboard() {
       return;
     }
 
-    const newOrder = project.featured ? 0 : pinned.length + 1;
+    const newOrder = project.featured ? 0 : pinned.length;
     const res = await fetch(`/api/projects/${project.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

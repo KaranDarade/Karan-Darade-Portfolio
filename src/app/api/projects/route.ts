@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 
       let imageUrl = "";
       try {
-        imageUrl = await captureScreenshot(deploymentUrl, slug);
+        imageUrl = await captureScreenshot(deploymentUrl, slug, title);
       } catch {
         // screenshot may fail, continue without it
       }
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
         githubUrl,
         deploymentUrl,
         imageUrl,
-        featured: true,
+        featured: false,
         order: 0,
       });
 
