@@ -49,9 +49,7 @@ export default function AllProjectsGrid({
   }, []);
 
   useEffect(() => {
-    if (!initialProjects) {
-      fetchPage(1, sort);
-    }
+    fetchPage(1, sort);
   }, []);
 
   const handleSort = (s: SortKey) => {
