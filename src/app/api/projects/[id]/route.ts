@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getProjectById, updateProject, deleteProject } from "@/lib/projects";
 import { getAuthStatus } from "@/lib/auth";
+import { parseRepoUrl } from "@/lib/github";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -24,6 +25,12 @@ export async function PUT(request: Request, { params }: Props) {
   const { id } = await params;
   try {
     const data = await request.json();
+    if (data.githubUrl && typeof data.githubUrl === "string") {
+      const repo = parseRepoUrl(data.githubUrl);
+      if (repo) {
+        data.githubUrl = `https://github.com/${repo.owner}/${repo.repo}`;
+      }
+    }
     const updated = updateProject(id, data);
     if (!updated) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });

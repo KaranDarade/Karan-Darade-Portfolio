@@ -46,6 +46,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Invalid GitHub URL" }, { status: 400 });
       }
 
+      const cleanGithubUrl = `https://github.com/${repo.owner}/${repo.repo}`;
+
       const slug = generateSlug(title);
 
       let repoInfo = { description: "", topics: [] as string[] };
@@ -81,7 +83,7 @@ export async function POST(request: Request) {
         detailedDescription,
         techStack,
         features,
-        githubUrl,
+        githubUrl: cleanGithubUrl,
         deploymentUrl,
         imageUrl,
         featured: false,
@@ -91,6 +93,12 @@ export async function POST(request: Request) {
       return NextResponse.json(project, { status: 201 });
     }
 
+    if (data.githubUrl && typeof data.githubUrl === "string") {
+      const repo = parseRepoUrl(data.githubUrl);
+      if (repo) {
+        data.githubUrl = `https://github.com/${repo.owner}/${repo.repo}`;
+      }
+    }
     const project = addProject(data);
     return NextResponse.json(project, { status: 201 });
   } catch (err) {
