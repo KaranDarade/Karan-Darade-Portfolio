@@ -46,9 +46,8 @@ export default function Header() {
             className="text-xl font-bold tracking-tight"
           >
             <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent">
-              KD
+              Karan Darade
             </span>
-            <span className="text-foreground/60 ml-1">.</span>
           </a>
 
           <nav className="hidden md:flex items-center gap-8">

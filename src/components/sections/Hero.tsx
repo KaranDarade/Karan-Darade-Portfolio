@@ -3,6 +3,7 @@
 import { ArrowDown, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import EyesFollowCursor from "@/components/ui/EyesFollowCursor";
 
 export default function Hero() {
   const scrollToProjects = () => {
@@ -91,6 +92,10 @@ export default function Hero() {
                 className="object-cover object-center"
                 priority
                 sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+              />
+              <EyesFollowCursor
+                eyeLeft={{ cx: 42, cy: 31.25 }}
+                eyeRight={{ cx: 60.5, cy: 31.25 }}
               />
             </div>
             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-primary/10 backdrop-blur-xl rounded-full px-4 py-1.5 border border-primary/20">
