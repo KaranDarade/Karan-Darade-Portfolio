@@ -1,10 +1,20 @@
+"use client";
+
 import { Mail, MapPin, Phone } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { scrollToSection } from "@/components/providers/AnimatedSection";
 
 const socialLinks = [
   { href: "https://github.com/KaranDarade", icon: GithubIcon, label: "GitHub" },
   { href: "https://www.linkedin.com/in/karan-darade-4a2392245/", icon: LinkedinIcon, label: "LinkedIn" },
   { href: "mailto:daradekaran123@gmail.com", icon: Mail, label: "Email" },
+];
+
+const quickLinks = [
+  { label: "Home", id: "home" },
+  { label: "Projects", id: "projects" },
+  { label: "About", id: "about" },
+  { label: "Contact", id: "contact" },
 ];
 
 export default function Footer() {
@@ -19,21 +29,21 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted leading-relaxed">
-              Developer focused on building modern, performant web experiences.
+              Developer focused on building modern, performant digital experiences.
             </p>
           </div>
 
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-3">Quick Links</h3>
             <ul className="space-y-2">
-              {["Home", "Projects", "About", "Contact"].map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase()}`}
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <button
+                    onClick={() => scrollToSection(link.id)}
                     className="text-sm text-muted hover:text-foreground transition-colors"
                   >
-                    {link}
-                  </a>
+                    {link.label}
+                  </button>
                 </li>
               ))}
             </ul>

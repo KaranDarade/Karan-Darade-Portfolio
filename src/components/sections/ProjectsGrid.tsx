@@ -7,8 +7,13 @@ import AnimatedSection from "@/components/providers/AnimatedSection";
 
 export default function ProjectsGrid({ projects }: { projects: Project[] }) {
   return (
-    <AnimatedSection id="projects" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="projects" className="py-20 sm:py-28 relative overflow-hidden scroll-mt-16">
+      <div className="absolute top-20 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-20 right-0 w-60 h-60 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-4 h-4 border border-primary/10 rounded-full" />
+      <div className="absolute bottom-1/4 left-1/4 w-3 h-3 bg-primary/10 rotate-45" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <p className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
             My Work
@@ -30,7 +35,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
           ))}
         </div>
 
-        <div className="flex justify-center mt-10">
+        <div className="flex flex-col items-center gap-4 mt-12">
           <a
             href="/admin/projects"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-card-border bg-card text-sm text-muted hover:text-foreground hover:border-primary/30 transition-all duration-200"
@@ -38,9 +43,6 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
             <Settings className="h-4 w-4" />
             Customize Pinned Projects
           </a>
-        </div>
-
-        <div className="text-center mt-6">
           <a
             href="/projects"
             className="text-sm text-muted hover:text-primary transition-colors"

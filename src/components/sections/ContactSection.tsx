@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, MapPin, Phone, Send, ArrowUpRight, Globe, ExternalLink } from "lucide-react";
+import { Mail, MapPin, Phone, Send, ArrowUpRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import AnimatedSection from "@/components/providers/AnimatedSection";
 
@@ -17,8 +17,11 @@ const socialLinks = [
 
 export default function ContactSection() {
   return (
-    <AnimatedSection id="contact" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="contact" className="py-20 sm:py-28 relative overflow-hidden scroll-mt-16">
+      <div className="absolute top-1/3 left-0 w-72 h-72 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <p className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
             Contact
@@ -36,7 +39,6 @@ export default function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <div className="lg:col-span-2 space-y-4">
-            <p className="text-sm font-medium text-foreground mb-3">Contact Info</p>
             {contactInfo.map((item) => {
               const Wrapper = item.href ? "a" : "div";
               const wrapperProps = item.href ? { href: item.href, target: "_blank", rel: "noopener noreferrer" } : {};
@@ -45,9 +47,9 @@ export default function ContactSection() {
                 <Wrapper
                   key={item.label}
                   {...wrapperProps}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
+                  className="flex items-center gap-4 p-5 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-fuchsia-500/10 flex items-center justify-center group-hover:from-primary/20 group-hover:to-fuchsia-500/20 transition-colors">
                     <item.icon className="h-5 w-5 text-primary" />
                   </div>
                   <div className="flex-1">
@@ -61,16 +63,15 @@ export default function ContactSection() {
           </div>
 
           <div className="space-y-4">
-            <p className="text-sm font-medium text-foreground mb-3">Social</p>
             {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
+                className="flex items-center gap-4 p-5 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
               >
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-fuchsia-500/10 flex items-center justify-center group-hover:from-primary/20 group-hover:to-fuchsia-500/20 transition-colors">
                   <link.icon className="h-5 w-5 text-primary" />
                 </div>
                 <div className="flex-1">

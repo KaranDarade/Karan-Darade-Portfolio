@@ -3,6 +3,7 @@
 import { ArrowDown, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { scrollToSection } from "@/components/providers/AnimatedSection";
 
 const marqueeItems = [
   "✦ Design", "✦ Build", "✦ Deploy", "✦ Repeat",
@@ -10,10 +11,6 @@ const marqueeItems = [
 ];
 
 export default function Hero() {
-  const scrollToProjects = () => {
-    document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-violet-500/5 via-transparent to-transparent pointer-events-none" />
@@ -61,23 +58,19 @@ export default function Hero() {
             className="flex flex-wrap gap-4 justify-center lg:justify-start"
           >
             <button
-              onClick={scrollToProjects}
+              onClick={() => scrollToSection("projects")}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-all duration-200 hover:scale-105"
             >
               View Projects
               <ArrowDown className="h-4 w-4" />
             </button>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-              }}
+            <button
+              onClick={() => scrollToSection("contact")}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-card-border bg-card text-foreground text-sm font-medium hover:border-primary/30 transition-all duration-200 hover:scale-105"
             >
               Get in Touch
               <ExternalLink className="h-4 w-4" />
-            </a>
+            </button>
           </motion.div>
         </motion.div>
 
@@ -108,14 +101,14 @@ export default function Hero() {
 
       <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-card-border/50 bg-accent/30 py-2.5">
         <div className="marquee-track flex gap-16 whitespace-nowrap">
-          <div className="flex gap-16 marquee-content">
+          <div className="flex gap-16">
             {marqueeItems.map((item) => (
               <span key={item} className="inline-flex items-center gap-3 text-sm text-muted/50 font-light tracking-wide">
                 {item}
               </span>
             ))}
           </div>
-          <div className="flex gap-16 marquee-content" aria-hidden="true">
+          <div className="flex gap-16" aria-hidden="true">
             {marqueeItems.map((item) => (
               <span key={`dup-${item}`} className="inline-flex items-center gap-3 text-sm text-muted/50 font-light tracking-wide">
                 {item}
@@ -129,7 +122,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.5 }}
-        onClick={scrollToProjects}
+        onClick={() => scrollToSection("projects")}
         className="absolute bottom-12 left-1/2 -translate-x-1/2 text-muted hover:text-foreground transition-colors animate-bounce"
         aria-label="Scroll down"
       >

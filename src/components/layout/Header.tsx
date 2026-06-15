@@ -4,15 +4,14 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
+import { scrollToSection } from "@/components/providers/AnimatedSection";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#projects", label: "Projects" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { label: "Home", id: "home" },
+  { label: "Projects", id: "projects" },
+  { label: "About", id: "about" },
+  { label: "Contact", id: "contact" },
 ];
-
-const HEADER_HEIGHT = 64;
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -24,14 +23,9 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleNavClick = (id: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - HEADER_HEIGHT;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+    scrollToSection(id);
   };
 
   return (
@@ -45,26 +39,24 @@ export default function Header() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, "#home")}
+          <button
+            onClick={() => scrollToSection("home")}
             className="text-lg sm:text-xl font-['Bricolage_Grotesque',_system-ui] font-black tracking-wide"
           >
             <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent italic">
               Karan Darade
             </span>
-          </a>
+          </button>
 
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
+              <button
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
                 className="text-sm font-medium text-muted hover:text-foreground transition-colors duration-200"
               >
                 {link.label}
-              </a>
+              </button>
             ))}
             <ThemeToggle />
           </nav>
@@ -86,14 +78,13 @@ export default function Header() {
         <div className="md:hidden border-t border-card-border bg-background/95 backdrop-blur-xl">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
+              <button
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
                 className="block text-sm font-medium text-muted hover:text-foreground transition-colors py-2"
               >
                 {link.label}
-              </a>
+              </button>
             ))}
           </div>
         </div>
