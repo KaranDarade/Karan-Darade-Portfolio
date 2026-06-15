@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import os from "os";
 
 export interface Project {
   id: string;
@@ -20,93 +19,74 @@ export interface Project {
 
 const BUNDLED_PATH = path.join(process.cwd(), "src", "data", "projects.json");
 
-const DATA_PATH = (() => {
-  try {
-    fs.accessSync(path.dirname(BUNDLED_PATH), fs.constants.W_OK);
-    return BUNDLED_PATH;
-  } catch {
-    return path.join(os.tmpdir(), "portfolio-projects.json");
-  }
-})();
+let data: Project[] | null = null;
 
-let cache: { data: Project[]; ts: number } | null = null;
-const CACHE_TTL = 10_000;
-
-function readProjects(): Project[] {
-  const now = Date.now();
-  if (cache && now - cache.ts < CACHE_TTL) return cache.data;
-  const src = fs.existsSync(DATA_PATH) ? DATA_PATH : BUNDLED_PATH;
-  const raw = fs.readFileSync(src, "utf-8");
-  const data: Project[] = JSON.parse(raw);
-  cache = { data, ts: now };
+function load(): Project[] {
+  if (data) return data;
+  const raw = fs.readFileSync(BUNDLED_PATH, "utf-8");
+  data = JSON.parse(raw) as Project[];
   return data;
 }
 
-function invalidateCache(updated?: Project[]) {
-  if (updated) {
-    cache = { data: updated, ts: Date.now() };
-  } else {
-    cache = null;
+function persist() {
+  try {
+    fs.writeFileSync(BUNDLED_PATH, JSON.stringify(data, null, 2), "utf-8");
+  } catch {
+    // read-only filesystem (Vercel) — changes stay in memory for this instance
   }
 }
 
-export function getWritablePath(): string {
-  return DATA_PATH;
-}
-
 export function getAllProjects(): Project[] {
-  return readProjects();
+  return load();
 }
 
 export function getFeaturedProjects(): Project[] {
-  const projects = readProjects();
-  return projects
+  return load()
     .filter((p) => p.featured)
     .sort((a, b) => a.order - b.order)
     .slice(0, 6);
 }
 
 export function getProjectBySlug(slug: string): Project | undefined {
-  const projects = readProjects();
-  return projects.find((p) => p.slug === slug);
+  return load().find((p) => p.slug === slug);
 }
 
 export function getProjectById(id: string): Project | undefined {
-  const projects = readProjects();
-  return projects.find((p) => p.id === id);
-}
-
-export function saveProjects(projects: Project[]): void {
-  fs.writeFileSync(DATA_PATH, JSON.stringify(projects, null, 2), "utf-8");
-  invalidateCache(projects);
+  return load().find((p) => p.id === id);
 }
 
 export function addProject(project: Omit<Project, "id" | "createdAt">): Project {
-  const projects = readProjects();
+  const projects = load();
   const newProject: Project = {
     ...project,
     id: Date.now().toString(36) + Math.random().toString(36).slice(2),
     createdAt: new Date().toISOString(),
   };
   projects.push(newProject);
-  saveProjects(projects);
+  persist();
   return newProject;
 }
 
+export function saveProjects(projects: Project[]): void {
+  data = projects;
+  persist();
+}
+
 export function updateProject(id: string, updates: Partial<Project>): Project | null {
-  const projects = readProjects();
+  const projects = load();
   const index = projects.findIndex((p) => p.id === id);
   if (index === -1) return null;
   projects[index] = { ...projects[index], ...updates };
-  saveProjects(projects);
+  persist();
   return projects[index];
 }
 
 export function deleteProject(id: string): boolean {
-  const projects = readProjects();
+  const projects = load();
   const filtered = projects.filter((p) => p.id !== id);
   if (filtered.length === projects.length) return false;
-  saveProjects(filtered);
+  data = filtered;
+  persist();
   return true;
 }
 
@@ -115,7 +95,7 @@ export function getPaginatedProjects(
   perPage: number = 6,
   sort: "newest" | "oldest" = "newest"
 ): { projects: Project[]; total: number; totalPages: number } {
-  const all = readProjects();
+  const all = load();
 
   const sorted = [...all].sort((a, b) => {
     const diff = new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
