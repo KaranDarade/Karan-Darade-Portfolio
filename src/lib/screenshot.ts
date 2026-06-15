@@ -45,7 +45,7 @@ function generatePlaceholderDataUrl(title: string): string {
   <text x="640" y="370" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="52" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="middle">${escapeXml(title)}</text>
   <text x="640" y="430" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="18" fill="rgba(255,255,255,0.6)" text-anchor="middle" dominant-baseline="middle" letter-spacing="0.5">Preview</text>
 </svg>`;
-  return `data:image/svg+xml;base64,${Buffer.from(svg, "utf-8").toString("base64")}`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
 export async function captureScreenshot(url: string, slug: string, title?: string): Promise<string> {
