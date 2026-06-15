@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ArrowUpDown, Loader2 } from "lucide-react";
-import type { Project } from "@/lib/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
 import Pagination from "@/components/ui/Pagination";
+import type { Project } from "@/lib/projects";
 
 const PER_PAGE = 6;
 type SortKey = "newest" | "oldest";
@@ -16,23 +16,19 @@ interface PaginatedResponse {
 }
 
 interface AllProjectsGridProps {
-  initialProjects?: Project[];
-  initialTotal?: number;
-  initialTotalPages?: number;
+  initialKey?: string;
 }
 
 export default function AllProjectsGrid({
-  initialProjects,
-  initialTotal,
-  initialTotalPages,
+  initialKey,
 }: AllProjectsGridProps) {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortKey>("newest");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState<PaginatedResponse>({
-    projects: initialProjects || [],
-    total: initialTotal || 0,
-    totalPages: initialTotalPages || 0,
+    projects: [],
+    total: 0,
+    totalPages: 0,
   });
 
   const fetchPage = useCallback(async (p: number, s: SortKey) => {
@@ -50,7 +46,7 @@ export default function AllProjectsGrid({
 
   useEffect(() => {
     fetchPage(1, sort);
-  }, []);
+  }, [initialKey]);
 
   const handleSort = (s: SortKey) => {
     setSort(s);

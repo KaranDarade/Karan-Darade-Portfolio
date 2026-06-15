@@ -8,6 +8,17 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+const GRADIENTS: [string, string][] = [
+  ["#6366f1", "#a855f7"],
+  ["#8b5cf6", "#ec4899"],
+  ["#06b6d4", "#3b82f6"],
+  ["#10b981", "#06b6d4"],
+  ["#f59e0b", "#ef4444"],
+  ["#8b5cf6", "#06b6d4"],
+  ["#ec4899", "#f97316"],
+  ["#a855f7", "#3b82f6"],
+];
+
 interface ProjectCardProps {
   title: string;
   slug: string;
@@ -36,6 +47,11 @@ export default function ProjectCard({ title, slug, description, githubUrl, deplo
     cardRef.current.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
   }, []);
 
+  const gradientIndex = Math.abs(
+    title.split("").reduce((h, c) => h + c.charCodeAt(0), 0)
+  ) % GRADIENTS.length;
+  const bgGradient = GRADIENTS[gradientIndex];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -52,15 +68,24 @@ export default function ProjectCard({ title, slug, description, githubUrl, deplo
         style={{ transition: "transform 0.15s ease-out" }}
       >
         <Link href={`/projects/${slug}`} className="block">
-          <div className="relative aspect-video bg-accent overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-fuchsia-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[1]" />
+          <div className="relative aspect-video overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-fuchsia-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[2]" />
+            {/* CSS gradient fallback (always visible underneath) */}
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ background: `linear-gradient(135deg, ${bgGradient[0]}, ${bgGradient[1]})` }}
+            >
+              <span className="text-white/90 text-2xl font-bold tracking-tight px-4 text-center leading-tight">
+                {title}
+              </span>
+            </div>
             {imageUrl ? (
               imageUrl.startsWith('data:') || imageUrl.endsWith('.svg') ? (
                 <img
                   src={imageUrl}
                   alt={title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover z-[1]"
+                  onError={(e) => { e.currentTarget.style.display = "none"; }}
                 />
               ) : (
                 <Image
@@ -71,20 +96,9 @@ export default function ProjectCard({ title, slug, description, githubUrl, deplo
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               )
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center mb-2">
-                    <span className="text-lg font-bold text-primary">
-                      {title.charAt(0)}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted">Preview</p>
-                </div>
-              </div>
-            )}
-            <div className="absolute -inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            ) : null}
+            <div className="absolute -inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-[2]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-[2]" />
           </div>
         </Link>
 

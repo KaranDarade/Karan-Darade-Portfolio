@@ -12,7 +12,7 @@ export default function AdminProjectActions({ projectId, projectTitle }: { proje
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/check")
+    fetch("/api/auth/check", { credentials: "include" })
       .then((r) => {
         if (r.ok) setAuthed(true);
       })
@@ -24,7 +24,7 @@ export default function AdminProjectActions({ projectId, projectTitle }: { proje
     setDeleting(true);
     try {
       const res = await fetch(`/api/projects/${projectId}`, { method: "DELETE" });
-      if (res.ok) router.push("/");
+      if (res.ok) window.location.href = "/";
     } catch {
       setDeleting(false);
     }

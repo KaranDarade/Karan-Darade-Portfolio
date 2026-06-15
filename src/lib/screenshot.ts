@@ -24,10 +24,21 @@ function escapeXml(s: string): string {
 function generatePlaceholderDataUrl(title: string): string {
   const [c1] = pickGradient(title);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="${c1}"/>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${c1}"/>
+      <stop offset="100%" stop-color="${GRADIENTS[Math.abs(title.length) % GRADIENTS.length][1]}"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#g)"/>
   <text x="640" y="380" font-family="sans-serif" font-size="52" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="middle">${escapeXml(title)}</text>
 </svg>`;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  const bytes = new TextEncoder().encode(svg);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return `data:image/svg+xml;base64,${btoa(binary)}`;
 }
 
 export async function captureScreenshot(_url: string, _slug: string, title?: string): Promise<string> {
