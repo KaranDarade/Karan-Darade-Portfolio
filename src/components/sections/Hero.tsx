@@ -164,8 +164,9 @@ export default function Hero() {
               </div>
             </div>
             <a
-              href="/resume.pdf"
-              download
+              href="https://drive.google.com/file/d/1tJ40H4v1OMwxZi8tGo4AyLW9bkaRDgnA/view"
+              target="_blank"
+              rel="noopener noreferrer"
               className="absolute -bottom-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 bg-gradient-to-r from-violet-500/20 via-fuchsia-500/20 to-rose-500/20 backdrop-blur-xl rounded-full px-5 py-2 border border-primary/20 shadow-lg shadow-primary/5 text-xs font-semibold text-foreground hover:from-violet-500/30 hover:via-fuchsia-500/30 hover:to-rose-500/30 transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap"
             >
               <Download className="h-3.5 w-3.5" />
