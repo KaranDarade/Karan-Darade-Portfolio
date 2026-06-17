@@ -11,7 +11,8 @@ const marqueeItems = [
 ];
 
 const headingWords = ["Hi,", "I'm", "Karan", "Darade"];
-const tagline = "Full Stack Developer";
+const tagline = "Software Developer & Technology Enthusiast";
+const heroDescription = "Computer Engineering graduate passionate about building software, exploring AI and machine learning, analyzing data, and creating modern web applications. Continuously learning new technologies and developing solutions that solve real-world problems.";
 
 const container = {
   hidden: {},
@@ -111,6 +112,14 @@ export default function Hero() {
               {tagline}
             </motion.span>
           </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.3, duration: 0.6 }}
+            className="text-base sm:text-lg text-muted leading-relaxed max-w-2xl mb-8"
+          >
+            {heroDescription}
+          </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -156,7 +165,7 @@ export default function Hero() {
             </div>
             <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-violet-500/15 via-fuchsia-500/15 to-rose-500/15 backdrop-blur-xl rounded-full px-4 sm:px-5 py-1.5 sm:py-2 border border-primary/20 shadow-lg shadow-primary/5">
               <span className="font-[family-name:var(--font-display)] text-[10px] sm:text-xs font-semibold tracking-wider bg-gradient-to-r from-violet-400 via-fuchsia-400 to-rose-400 bg-clip-text text-transparent italic">
-                Full Stack Developer
+                Software Developer &amp; Technology Enthusiast
               </span>
             </div>
           </div>

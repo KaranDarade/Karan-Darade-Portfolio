@@ -33,10 +33,7 @@ export default function AboutSection() {
           <div className="absolute -left-8 top-0 w-px h-full bg-gradient-to-b from-primary/20 via-transparent to-transparent hidden sm:block" />
           <div className="absolute -right-8 top-0 w-px h-full bg-gradient-to-b from-primary/20 via-transparent to-transparent hidden sm:block" />
           <p className="text-lg text-muted leading-relaxed">
-            I&apos;m a Bachelors degree graduate in Computer Science from Maharashtra, India,
-            passionate about building modern, performant digital experiences. I enjoy working
-            across the various stacks — from crafting web apps, android apps, etc. Building
-            projects is an opportunity to learn something new and push creative boundaries.
+            I&apos;m a Computer Engineering graduate passionate about building software and exploring emerging technologies. My interests span web development, artificial intelligence, machine learning, data analytics, and creating data-driven solutions that solve real-world problems. I enjoy working across different domains—from developing modern web applications and software systems to experimenting with AI-powered tools and analytical projects. Every project is an opportunity to learn, innovate, and push my technical and creative boundaries while building impactful digital products.
           </p>
         </div>
 
