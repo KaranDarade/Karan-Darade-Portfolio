@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllProjects, getFeaturedProjects, getPaginatedProjects, addProject } from "@/lib/projects";
+import { getAllProjects, getFeaturedProjects, addProject } from "@/lib/projects";
 import { getAuthStatus } from "@/lib/auth";
 import { parseRepoUrl, getRepoInfo, getRepoLanguages, getRepoReadme } from "@/lib/github";
 import { generateSlug, generateDescription, generateDetailedDescription, extractTechStack, extractFeatures } from "@/lib/autoGenerate";
@@ -12,14 +12,28 @@ export async function GET(request: NextRequest) {
   const perPage = searchParams.get("perPage");
   const sort = (searchParams.get("sort") || "newest") as SortKey;
   const featured = searchParams.get("featured");
+  const search = searchParams.get("search")?.trim().toLowerCase() || "";
 
   if (featured === "true") {
     return NextResponse.json(getFeaturedProjects());
   }
 
   if (page && perPage) {
-    const result = getPaginatedProjects(parseInt(page), parseInt(perPage), sort);
-    return NextResponse.json(result);
+    const all = getAllProjects();
+    const filtered = search
+      ? all.filter((p) => p.title.toLowerCase().includes(search))
+      : all;
+    const sorted = [...filtered].sort((a, b) => {
+      const diff = new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      return sort === "oldest" ? -diff : diff;
+    });
+    const p = parseInt(page);
+    const pp = parseInt(perPage);
+    const total = sorted.length;
+    const totalPages = Math.ceil(total / pp) || 1;
+    const start = (p - 1) * pp;
+    const projects = sorted.slice(start, start + pp);
+    return NextResponse.json({ projects, total, totalPages });
   }
 
   const projects = getAllProjects();

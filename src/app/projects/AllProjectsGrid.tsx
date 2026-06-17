@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ArrowUpDown, Loader2 } from "lucide-react";
+import { ArrowUpDown, Loader2, Search } from "lucide-react";
 import ProjectCard from "@/components/ui/ProjectCard";
 import Pagination from "@/components/ui/Pagination";
 import type { Project } from "@/lib/projects";
@@ -24,6 +24,7 @@ export default function AllProjectsGrid({
 }: AllProjectsGridProps) {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortKey>("newest");
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<PaginatedResponse>({
     projects: [],
@@ -31,32 +32,39 @@ export default function AllProjectsGrid({
     totalPages: 0,
   });
 
-  const fetchPage = useCallback(async (p: number, s: SortKey) => {
+  const fetchPage = useCallback(async (p: number, s: SortKey, q: string) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/projects?page=${p}&perPage=${PER_PAGE}&sort=${s}`);
+      const params = new URLSearchParams({ page: String(p), perPage: String(PER_PAGE), sort: s });
+      if (q) params.set("search", q);
+      const res = await fetch(`/api/projects?${params}`);
       const json = await res.json();
       setData(json);
     } catch {
-      // keep current data on error
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchPage(1, sort);
+    fetchPage(1, sort, search);
   }, [initialKey]);
 
   const handleSort = (s: SortKey) => {
     setSort(s);
     setPage(1);
-    fetchPage(1, s);
+    fetchPage(1, s, search);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearch(value);
+    setPage(1);
+    fetchPage(1, sort, value);
   };
 
   const handlePageChange = (p: number) => {
     setPage(p);
-    fetchPage(p, sort);
+    fetchPage(p, sort, search);
   };
 
   return (
@@ -85,7 +93,17 @@ export default function AllProjectsGrid({
           </p>
         </div>
 
-        <div className="flex justify-center mb-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+          <div className="relative w-full max-w-xs">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search projects..."
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-card border border-card-border text-foreground text-sm placeholder:text-muted/50 focus:outline-none focus:border-primary/50 transition-colors"
+            />
+          </div>
           <div className="relative">
             <ArrowUpDown className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
             <select

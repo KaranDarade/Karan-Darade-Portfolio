@@ -79,21 +79,4 @@ export function deleteProject(id: string): boolean {
   return true;
 }
 
-export function getPaginatedProjects(
-  page: number,
-  perPage: number = 6,
-  sort: "newest" | "oldest" = "newest"
-): { projects: Project[]; total: number; totalPages: number } {
-  const all = load();
-  const sorted = [...all].sort((a, b) => {
-    const diff = new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    return sort === "oldest" ? -diff : diff;
-  });
-  const total = sorted.length;
-  const totalPages = Math.ceil(total / perPage) || 1;
-  const start = (page - 1) * perPage;
-  const projects = sorted.slice(start, start + perPage);
-  return { projects, total, totalPages };
-}
-
 export type SortKey = "newest" | "oldest";
