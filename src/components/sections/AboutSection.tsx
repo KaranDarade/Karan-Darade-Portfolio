@@ -27,7 +27,7 @@ export default function AboutSection() {
         </div>
 
         <div className="flex justify-center" ref={sectionRef}>
-          <div className="relative w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] aspect-square">
+          <div className="relative w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] aspect-[4/5] sm:aspect-square">
             <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-amber-500/10 p-[1px]">
               <div className="w-full h-full rounded-2xl sm:rounded-3xl bg-card/80 backdrop-blur-sm relative overflow-hidden">
                 <FloatingParticles count={16} />
