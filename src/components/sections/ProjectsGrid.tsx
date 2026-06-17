@@ -20,7 +20,7 @@ export default function ProjectsGrid({ projects: initial }: { projects: Project[
   }, []);
 
   return (
-    <AnimatedSection id="projects" className="py-20 sm:py-28 relative overflow-hidden scroll-mt-16">
+    <AnimatedSection id="projects" className="py-16 sm:py-20 relative overflow-hidden scroll-mt-16">
       <div className="absolute top-20 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-0 w-60 h-60 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
 

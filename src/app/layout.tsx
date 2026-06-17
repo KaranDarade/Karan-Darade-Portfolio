@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Bricolage_Grotesque, Playfair_Display } from "next/font/google";
+import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
@@ -18,11 +18,6 @@ const geistMono = Geist_Mono({
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-display",
-  subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-serif",
   subsets: ["latin"],
 });
 
@@ -46,7 +41,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} ${playfair.variable} dark h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
