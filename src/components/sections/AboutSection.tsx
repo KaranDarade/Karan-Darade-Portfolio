@@ -27,13 +27,13 @@ export default function AboutSection() {
         </div>
 
         <div className="flex justify-center" ref={sectionRef}>
-          <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md aspect-square sm:aspect-[4/5] md:aspect-[3/4] lg:aspect-square">
+          <div className="relative w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] aspect-square">
             <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-amber-500/10 p-[1px]">
               <div className="w-full h-full rounded-2xl sm:rounded-3xl bg-card/80 backdrop-blur-sm relative overflow-hidden">
                 <FloatingParticles count={16} />
 
-                <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-                  <p className="text-sm sm:text-base md:text-lg leading-[1.7] text-muted text-center max-w-[220px] sm:max-w-[280px] md:max-w-sm">
+                <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-6 md:p-8 lg:p-10">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted text-center">
                     I&apos;m a Computer Engineering graduate passionate about building software and exploring emerging technologies. My interests span web development, artificial intelligence, machine learning, data analytics, and creating data-driven solutions that solve real-world problems. I enjoy working across different domains—from developing modern web applications and software systems to experimenting with AI-powered tools and analytical projects. Every project is an opportunity to learn, innovate, and push my technical and creative boundaries while building impactful digital products.
                   </p>
                 </div>
