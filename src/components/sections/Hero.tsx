@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDown, ExternalLink } from "lucide-react";
+import { ArrowDown, ExternalLink, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { scrollToSection } from "@/components/providers/AnimatedSection";
@@ -163,11 +163,14 @@ export default function Hero() {
                 />
               </div>
             </div>
-            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-violet-500/15 via-fuchsia-500/15 to-rose-500/15 backdrop-blur-xl rounded-full px-4 sm:px-5 py-1.5 sm:py-2 border border-primary/20 shadow-lg shadow-primary/5">
-              <span className="font-[family-name:var(--font-display)] text-[10px] sm:text-xs font-semibold tracking-wider bg-gradient-to-r from-violet-400 via-fuchsia-400 to-rose-400 bg-clip-text text-transparent italic">
-                Software Developer &amp; Technology Enthusiast
-              </span>
-            </div>
+            <a
+              href="/resume.pdf"
+              download
+              className="absolute -bottom-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 bg-gradient-to-r from-violet-500/20 via-fuchsia-500/20 to-rose-500/20 backdrop-blur-xl rounded-full px-5 py-2 border border-primary/20 shadow-lg shadow-primary/5 text-xs font-semibold text-foreground hover:from-violet-500/30 hover:via-fuchsia-500/30 hover:to-rose-500/30 transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap"
+            >
+              <Download className="h-3.5 w-3.5" />
+              Resume
+            </a>
           </div>
         </motion.div>
       </div>
