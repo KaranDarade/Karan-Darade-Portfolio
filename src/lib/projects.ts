@@ -29,6 +29,16 @@ function load(): Project[] {
   return g[KEY];
 }
 
+function persist(): void {
+  const g = globalThis as any;
+  if (!g[KEY]) return;
+  try {
+    fs.writeFileSync(BUNDLED_PATH, JSON.stringify(g[KEY], null, 2), "utf-8");
+  } catch {
+    // file write may fail in read-only environments (Vercel), skip
+  }
+}
+
 export function getAllProjects(): Project[] {
   return load();
 }
@@ -56,11 +66,13 @@ export function addProject(project: Omit<Project, "id" | "createdAt">): Project 
     createdAt: new Date().toISOString(),
   };
   projects.push(newProject);
+  persist();
   return newProject;
 }
 
 export function saveProjects(updated: Project[]): void {
   (globalThis as any)[KEY] = updated;
+  persist();
 }
 
 export function updateProject(id: string, updates: Partial<Project>): Project | null {
@@ -68,6 +80,7 @@ export function updateProject(id: string, updates: Partial<Project>): Project | 
   const index = projects.findIndex((p) => p.id === id);
   if (index === -1) return null;
   projects[index] = { ...projects[index], ...updates };
+  persist();
   return projects[index];
 }
 
@@ -76,6 +89,7 @@ export function deleteProject(id: string): boolean {
   const filtered = projects.filter((p) => p.id !== id);
   if (filtered.length === projects.length) return false;
   (globalThis as any)[KEY] = filtered;
+  persist();
   return true;
 }
 

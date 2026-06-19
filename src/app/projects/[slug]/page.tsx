@@ -103,9 +103,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           </a>
         </div>
 
-        {project.imageUrl ? (
-          <ProjectPreviewImage imageUrl={project.imageUrl} title={project.title} />
-        ) : null}
+        <ProjectPreviewImage imageUrl={project.imageUrl || ""} title={project.title} />
 
         <div className="prose prose-sm dark:prose-invert max-w-none mb-12">
           <div className="p-6 rounded-2xl bg-card border border-card-border">

@@ -27,12 +27,14 @@ export default function ProjectPreviewImage({ imageUrl, title }: { imageUrl: str
           {title}
         </span>
       </div>
-      <img
-        src={imageUrl}
-        alt={title}
-        className="absolute inset-0 w-full h-full object-cover"
-        onError={(e) => { e.currentTarget.style.display = "none"; }}
-      />
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={(e) => { e.currentTarget.style.display = "none"; }}
+        />
+      )}
     </div>
   );
 }
