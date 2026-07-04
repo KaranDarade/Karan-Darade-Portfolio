@@ -81,6 +81,7 @@ export default function ProjectCard({ title, slug, description, githubUrl, deplo
             </div>
             {imageUrl ? (
               imageUrl.startsWith('data:') || imageUrl.endsWith('.svg') ? (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={imageUrl}
                   alt={title}

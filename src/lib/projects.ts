@@ -20,20 +20,24 @@ export interface Project {
 const BUNDLED_PATH = path.join(process.cwd(), "src", "data", "projects.json");
 const KEY = "__portfolio_data__";
 
+function getGlobalCache(): Record<string, Project[]> {
+  return globalThis as unknown as Record<string, Project[]>;
+}
+
 function load(): Project[] {
-  const g = globalThis as any;
-  if (g[KEY]) return g[KEY] as Project[];
+  const cache = getGlobalCache();
+  if (cache[KEY]) return cache[KEY];
 
   const raw = fs.readFileSync(BUNDLED_PATH, "utf-8");
-  g[KEY] = JSON.parse(raw) as Project[];
-  return g[KEY];
+  cache[KEY] = JSON.parse(raw) as Project[];
+  return cache[KEY];
 }
 
 function persist(): void {
-  const g = globalThis as any;
-  if (!g[KEY]) return;
+  const cache = getGlobalCache();
+  if (!cache[KEY]) return;
   try {
-    fs.writeFileSync(BUNDLED_PATH, JSON.stringify(g[KEY], null, 2), "utf-8");
+    fs.writeFileSync(BUNDLED_PATH, JSON.stringify(cache[KEY], null, 2), "utf-8");
   } catch {
     // file write may fail in read-only environments (Vercel), skip
   }
@@ -71,7 +75,7 @@ export function addProject(project: Omit<Project, "id" | "createdAt">): Project 
 }
 
 export function saveProjects(updated: Project[]): void {
-  (globalThis as any)[KEY] = updated;
+  getGlobalCache()[KEY] = updated;
   persist();
 }
 
@@ -88,7 +92,7 @@ export function deleteProject(id: string): boolean {
   const projects = load();
   const filtered = projects.filter((p) => p.id !== id);
   if (filtered.length === projects.length) return false;
-  (globalThis as any)[KEY] = filtered;
+  getGlobalCache()[KEY] = filtered;
   persist();
   return true;
 }

@@ -50,6 +50,7 @@ export default function FloatingParticles({ count = 18 }: { count?: number }) {
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
       });
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setParticles(items);
   }, [count]);
 

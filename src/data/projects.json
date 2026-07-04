@@ -299,5 +299,50 @@
     "order": 5,
     "id": "mqfq9hlpuqhxmk2ifj",
     "createdAt": "2026-06-15T21:30:56.222Z"
+  },
+  {
+    "title": "PollCast — Live Polling & Q&A Platform",
+    "slug": "pollcast",
+    "description": "A production-grade real-time live polling and Q&A platform for events. Features live polls with instant results, moderated Q&A, and an analytics dashboard.",
+    "detailedDescription": "A full-stack real-time polling and Q&A platform built for live events. Hosts can create interactive polls (single/multi-choice) with timers and auto-close, manage a moderated Q&A system with anonymous asking and upvoting, and monitor engagement through an analytics dashboard with participant counts and vote metrics. The platform uses Socket.IO with Redis pub/sub for instant WebSocket updates, PostgreSQL for relational data integrity, and JWT access/refresh tokens for secure authentication across frontend, backend, and WebSocket connections. A separate Express server handles persistent WebSocket connections, making it deployable across Vercel (frontend) and Railway (backend). Includes comprehensive testing with Jest, Supertest, and Playwright E2E tests, plus Sentry error monitoring.",
+    "techStack": [
+      "Next.js 16",
+      "React 18",
+      "TypeScript 5",
+      "Tailwind CSS 3",
+      "shadcn/ui",
+      "Framer Motion 11",
+      "Recharts",
+      "React Hook Form",
+      "Zod",
+      "Express.js",
+      "Prisma ORM",
+      "PostgreSQL",
+      "Redis",
+      "Socket.IO",
+      "JWT",
+      "Docker Compose",
+      "Jest",
+      "Playwright"
+    ],
+    "features": [
+      "Live single/multi-choice polls with timers and auto-close",
+      "Moderated Q&A system with anonymous asking and upvoting",
+      "Real-time results via Socket.IO with Redis pub/sub",
+      "Event management with scheduling, password protection, and invite links",
+      "Analytics dashboard with participant counts and engagement metrics",
+      "JWT access/refresh token authentication across all layers",
+      "Role-based access (Admin, Host, Participant)",
+      "Responsive dark/light mode UI with skeleton loaders",
+      "Comprehensive testing: Jest, Supertest, Playwright E2E",
+      "Dockerized deployment with CI/CD pipeline"
+    ],
+    "githubUrl": "https://github.com/KaranDarade/PollCast",
+    "deploymentUrl": "https://pollcastweb-production.up.railway.app/",
+    "imageUrl": "/projects/pollcast.png",
+    "featured": false,
+    "order": 0,
+    "id": "proj_pollcast",
+    "createdAt": "2026-07-04T00:00:00.000Z"
   }
 ]

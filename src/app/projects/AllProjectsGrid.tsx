@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, startTransition } from "react";
 import { ArrowUpDown, Loader2, Search } from "lucide-react";
 import ProjectCard from "@/components/ui/ProjectCard";
 import Pagination from "@/components/ui/Pagination";
@@ -47,7 +47,17 @@ export default function AllProjectsGrid({
   }, []);
 
   useEffect(() => {
-    fetchPage(1, sort, search);
+    let cancelled = false;
+    const params = new URLSearchParams({ page: "1", perPage: String(PER_PAGE), sort });
+    if (search) params.set("search", search);
+    startTransition(() => setLoading(true));
+    fetch(`/api/projects?${params}`)
+      .then((res) => res.json())
+      .then((json) => { if (!cancelled) startTransition(() => setData(json)); })
+      .catch(() => {})
+      .finally(() => { if (!cancelled) startTransition(() => setLoading(false)); });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialKey]);
 
   const handleSort = (s: SortKey) => {

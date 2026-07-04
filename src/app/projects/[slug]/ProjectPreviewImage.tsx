@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
+
 const GRADIENTS: [string, string][] = [
   ["#6366f1", "#a855f7"],
   ["#8b5cf6", "#ec4899"],
