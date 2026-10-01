@@ -11,7 +11,7 @@ export default function ProjectsGrid({ projects: initial }: { projects: Project[
   const [projects, setProjects] = useState(initial);
 
   useEffect(() => {
-    fetch("/api/projects?featured=true")
+    fetch("/api/projects")
       .then((r) => r.json())
       .then((data: Project[]) => {
         if (data.length > 0) setProjects(data);

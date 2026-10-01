@@ -1,5 +1,120 @@
 [
   {
+    "id": "proj_agent_board",
+    "title": "Agent Board",
+    "slug": "agent-board",
+    "description": "A multi-tool AI coding agent fleet manager that auto-discovers and orchestrates sessions across OpenCode, Cursor AI, Antigravity and Claude Code — with a black, gold & white UI and 24/7 mobile access.",
+    "detailedDescription": "Agent Board is a high-performance command center for managing a fleet of AI coding agents across multiple tools. It automatically scans your machine for OpenCode, Cursor AI, Antigravity and Claude Code sessions and normalizes them into a single unified fleet view. Agents can be filtered by engine and role (BUILD, PLAN, EXPLORE, GENERAL), monitored through live status beacons, and inspected in detail — including tasks, message transcripts, tool executions and model telemetry. Sessions can be deactivated to prevent token burn or steered with manual prompt directives. The server listens on all network interfaces and exposes your local Wi-Fi IP so you can monitor the dashboard from your phone on the same network, and the app is packaged as a downloadable Electron desktop companion. The UI ships with a luxury black, gold & white palette and full dark/light theme support.",
+    "techStack": [
+      "Node.js",
+      "Express",
+      "React 18",
+      "Vite",
+      "Tailwind CSS",
+      "Electron",
+      "Supabase",
+      "Lucide React",
+      "Playwright",
+      "Vercel"
+    ],
+    "features": [
+      "Auto-discovers sessions across OpenCode, Cursor AI, Antigravity and Claude Code",
+      "Unified fleet view that normalizes hundreds of agent sessions",
+      "Engine and role filters (BUILD, PLAN, EXPLORE, GENERAL) with live status beacons",
+      "Grid cards and high-density compact table view switcher",
+      "Deactivate or activate agents with one click to prevent token burn",
+      "Steer agent sessions by sending manual prompt directives",
+      "Live inspector for tasks, transcripts, tool executions and model telemetry",
+      "Luxury black, gold & white theme with dark/light toggle and localStorage persistence",
+      "24/7 mobile access over LAN with an auto-detected Wi-Fi IP and copy button",
+      "Cross-platform desktop companion packaged with Electron"
+    ],
+    "githubUrl": "https://github.com/KaranDarade/Agent-Board",
+    "deploymentUrl": "https://agent-board-ecru.vercel.app",
+    "imageUrl": "/projects/agent-board.png",
+    "featured": true,
+    "order": 1,
+    "createdAt": "2026-09-18T00:00:00.000Z"
+  },
+  {
+    "id": "proj_wordle_arena",
+    "title": "Wordle Arena",
+    "slug": "wordle-arena",
+    "description": "A multi-game daily word-puzzle platform (Wordle, Spelling Bee, Connections and more) built with Next.js 16, PostgreSQL/Prisma and server-validated game logic, with a full admin dashboard.",
+    "detailedDescription": "Wordle Arena is a multi-game daily word-puzzle site that bundles Wordle, Spelling Bee, Connections and more into one platform. Every game uses a rotation bucket computed in IST — daily puzzles roll over at 00:00 and twelve-hour puzzles at 00:00 and 12:00 — and a deterministic HMAC-based fallback guarantees a puzzle always resolves even if no scheduler runs. Admins can override any word from the dashboard without it being overwritten by automation. The platform ships with secure authentication (bcrypt passwords, opaque SHA-256-hashed session tokens in HTTP-only cookies), optional guest play, rate limiting, CSRF origin checks and hardened security headers. Guesses are validated and scored entirely on the server, so the answer is never exposed to the browser before the game ends. A full admin dashboard covers users, games, word schedules, CSV word-list imports, analytics and an audit log, and the project is covered by Vitest integration tests and Playwright E2E tests with automated accessibility checks.",
+    "techStack": [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "PostgreSQL",
+      "Prisma ORM",
+      "bcrypt",
+      "next-themes",
+      "Zod",
+      "Vitest",
+      "Playwright",
+      "Vercel"
+    ],
+    "features": [
+      "Multi-game daily puzzles: Wordle, Spelling Bee, Connections and more",
+      "Daily and 12-hourly word rotation with IST-based buckets",
+      "Deterministic HMAC fallback so every bucket resolves to a word",
+      "Admin word overrides that automation never overwrites",
+      "Wordle Unlimited drawing from a per-12-hour pool snapshot",
+      "Full admin dashboard: users, games, word lists, analytics and audit log",
+      "Secure auth with bcrypt, hashed session tokens and HTTP-only cookies",
+      "Server-side guess validation so answers are never leaked to the browser",
+      "Rate limiting, CSRF origin checks and hardened security headers",
+      "Guest play via signed anonymous cookie with optional sign-in",
+      "Vitest integration tests and Playwright E2E with axe accessibility checks",
+      "Automatic rotation via Vercel Cron plus an external 12-hour scheduler"
+    ],
+    "githubUrl": "https://github.com/KaranDarade/XtremeWordle",
+    "deploymentUrl": "https://xtreme-wordle.vercel.app",
+    "imageUrl": "/projects/wordle-arena.png",
+    "featured": true,
+    "order": 2,
+    "createdAt": "2026-09-24T00:00:00.000Z"
+  },
+  {
+    "id": "proj_storeflow",
+    "title": "StoreFlow — Product Management Dashboard",
+    "slug": "storeflow",
+    "description": "A premium product-management dashboard over the DummyJSON catalogue, built with Next.js 16, React 19, TypeScript and Tailwind CSS v4 — with a dark emerald glass design system and hand-built SVG charts.",
+    "detailedDescription": "StoreFlow is a premium product-management dashboard built on the free DummyJSON catalogue. It presents a dark, emerald-accented glass design system with a collapsible sidebar, a compact glass topbar with command search, and a mobile bottom tab bar. The core Products workspace combines search, category filtering, sorting, page size and a table/grid view toggle, all driven by the URL so any view can be shared or refreshed without losing state. Around it sit a KPI dashboard, category analytics, a full analytics workspace with price-band charts and rating histograms, product detail pages with Overview/Reviews/Details tabs, and settings. Charts and sparklines are hand-built with SVG/CSS rather than a charting library, all HTTP calls go through one shared Axios instance, and local create/edit/delete overrides are merged over the real API data. The app tracks real API latency and connection state with 30-second polling that pauses when the tab is hidden, and route protection uses Next.js 16's renamed proxy middleware.",
+    "techStack": [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Axios",
+      "DummyJSON API",
+      "Turbopack",
+      "Vercel"
+    ],
+    "features": [
+      "Dark, emerald-accented glass design system with light/dark toggle",
+      "KPI dashboard with catalogue area chart and category donut",
+      "Products workspace with search, category filter, sort and page size",
+      "Table and grid view toggle over a dark glass table",
+      "Product details with Overview, Reviews and Details tabs",
+      "Category analytics with counts, average price and stock health",
+      "Full analytics workspace with price-band chart and rating histogram",
+      "URL-driven list state so shared links reproduce the exact view",
+      "Live API latency and connection state with 30s polling that pauses when hidden",
+      "Local create, edit and delete overrides merged over real API data",
+      "Hand-built SVG/CSS charts — no charting library",
+      "Route protection via Next.js 16's renamed proxy middleware"
+    ],
+    "githubUrl": "https://github.com/KaranDarade/React-Dashboard-NextGenesis-",
+    "deploymentUrl": "https://react-dashboard-nextgenesis.vercel.app/login",
+    "imageUrl": "/projects/storeflow.png",
+    "featured": true,
+    "order": 3,
+    "createdAt": "2026-09-28T00:00:00.000Z"
+  },
+  {
     "id": "proj_1",
     "title": "Ultima Creative Studio",
     "slug": "ultima-creative-studio",
@@ -26,7 +141,7 @@
     "deploymentUrl": "https://ultima-landing-page-gilt.vercel.app/",
     "imageUrl": "/projects/ultima-creative-studio.png",
     "featured": true,
-    "order": 1,
+    "order": 4,
     "createdAt": "2025-01-15T00:00:00.000Z"
   },
   {
@@ -55,7 +170,7 @@
     "deploymentUrl": "https://3-d-portfolio-jade-delta.vercel.app/",
     "imageUrl": "/projects/3d-portfolio.png",
     "featured": true,
-    "order": 2,
+    "order": 5,
     "createdAt": "2025-02-10T00:00:00.000Z"
   },
   {
@@ -84,7 +199,7 @@
     "deploymentUrl": "https://adsolence.vercel.app/",
     "imageUrl": "/projects/adsolence-digital-agency.png",
     "featured": true,
-    "order": 3,
+    "order": 6,
     "createdAt": "2025-03-05T00:00:00.000Z"
   },
   {
@@ -122,7 +237,7 @@
     "deploymentUrl": "https://stackcraft-blog.vercel.app/",
     "imageUrl": "/projects/stackcraft-blog.png",
     "featured": true,
-    "order": 4,
+    "order": 7,
     "createdAt": "2025-04-01T00:00:00.000Z"
   },
   {
@@ -159,7 +274,7 @@
     "deploymentUrl": "https://groceries-fresh.netlify.app/",
     "imageUrl": "/projects/groceries-organic-store.png",
     "featured": true,
-    "order": 5,
+    "order": 8,
     "createdAt": "2025-04-20T00:00:00.000Z"
   },
   {
@@ -296,8 +411,7 @@
     "deploymentUrl": "https://erp-system-brown-one.vercel.app/",
     "imageUrl": "/projects/erp-system.png",
     "featured": true,
-    "order": 5,
-    "id": "mqfq9hlpuqhxmk2ifj",
+    "order": 9,
     "createdAt": "2026-06-15T21:30:56.222Z"
   },
   {
