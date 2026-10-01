@@ -10,17 +10,36 @@ const navLinks = [
   { label: "Home", id: "home" },
   { label: "Projects", id: "projects" },
   { label: "About", id: "about" },
+  { label: "Experience", id: "experience" },
   { label: "Contact", id: "contact" },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [active, setActive] = useState("home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    navLinks.forEach((link) => {
+      const el = document.getElementById(link.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   const handleNavClick = (id: string) => {
@@ -40,42 +59,54 @@ export default function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-card-border"
-          : "bg-transparent"
+          ? "border-b border-card-border bg-background/80 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
       )}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-4">
           <button
             onClick={goHome}
-            className="text-lg sm:text-xl font-['Bricolage_Grotesque',_system-ui] font-black tracking-wide"
+            className="group flex items-center gap-2.5"
+            aria-label="Karan Darade — home"
           >
-            <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent italic">
+            <span className="grid h-8 w-8 place-items-center rounded-lg border border-card-border bg-surface font-mono text-[11px] font-bold tracking-tight text-primary transition-colors group-hover:border-primary/40">
+              KD
+            </span>
+            <span className="font-display text-[15px] font-semibold tracking-tight">
               Karan Darade
             </span>
           </button>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className="text-sm font-medium text-muted hover:text-foreground transition-colors duration-200"
+                className={cn(
+                  "relative rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors duration-200",
+                  active === link.id
+                    ? "text-foreground"
+                    : "text-muted hover:text-foreground"
+                )}
               >
-                {link.label}
+                {active === link.id && (
+                  <span className="absolute inset-0 rounded-full border border-card-border bg-accent" />
+                )}
+                <span className="relative">{link.label}</span>
               </button>
             ))}
-            <ThemeToggle />
           </nav>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-3 rounded-full bg-accent hover:bg-accent-hover border border-card-border text-foreground/70 hover:text-foreground transition-all min-w-[44px] min-h-[44px]"
+              className="grid h-11 w-11 place-items-center rounded-full border border-card-border bg-accent text-foreground/70 transition-colors hover:text-foreground md:hidden"
               aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -84,13 +115,18 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-card-border bg-background/95 backdrop-blur-xl">
-          <div className="px-4 py-4 space-y-3">
+        <div className="border-t border-card-border bg-background/95 backdrop-blur-xl md:hidden">
+          <div className="mx-auto max-w-6xl space-y-1 px-4 py-3">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className="block text-sm font-medium text-muted hover:text-foreground transition-colors py-3 min-h-[44px]"
+                className={cn(
+                  "block w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors",
+                  active === link.id
+                    ? "bg-accent text-foreground"
+                    : "text-muted hover:bg-accent/60 hover:text-foreground"
+                )}
               >
                 {link.label}
               </button>

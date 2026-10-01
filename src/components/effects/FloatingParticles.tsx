@@ -19,13 +19,13 @@ interface Particle {
 }
 
 const COLORS = [
-  "#a855f7",
-  "#6366f1",
-  "#ec4899",
-  "#06b6d4",
-  "#f59e0b",
-  "#8b5cf6",
-  "#10b981",
+  "#7c6cf6",
+  "#6a59f0",
+  "#5b9dff",
+  "#9f8cff",
+  "#8ab4ff",
+  "#a78bfa",
+  "#60a5fa",
 ];
 
 export default function FloatingParticles({ count = 18 }: { count?: number }) {

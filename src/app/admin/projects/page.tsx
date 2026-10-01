@@ -148,7 +148,7 @@ export default function AdminDashboard() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl font-bold">Manage Projects</h1>
+            <h1 className="font-display text-2xl font-bold">Manage Projects</h1>
             <p className="text-sm text-muted mt-1">
               <span className={cn(pinned.length === MAX_PINNED ? "text-amber-500" : "text-muted")}>
                 {pinned.length}/{MAX_PINNED} pinned

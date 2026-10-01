@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { RotateCw } from "lucide-react";
 
 export default function Error({
   error,
@@ -14,27 +15,24 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-4">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-red-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl" />
+    <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-4 text-center">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-red-500/10 blur-[110px]" />
+        <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-secondary/10 blur-[110px]" />
       </div>
-      <span className="text-[6rem] sm:text-[8rem] font-bold font-[family-name:var(--font-display)] leading-none bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
-        Oops!
-      </span>
-      <h1 className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-display)] mt-4">
+
+      <span className="font-mono text-sm uppercase tracking-[0.3em] text-red-400">Error</span>
+      <h1 className="font-display mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
         Something went wrong
       </h1>
-      <p className="text-muted mt-2 text-center max-w-md">
+      <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
         An unexpected error occurred. Please try again.
       </p>
       <button
         onClick={reset}
-        className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200 font-medium cursor-pointer"
+        className="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-primary-hover"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-        </svg>
+        <RotateCw className="h-4 w-4" />
         Try Again
       </button>
     </div>

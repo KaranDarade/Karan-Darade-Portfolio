@@ -146,10 +146,10 @@ export default function ProjectForm({ initialData, isEditing, autoMode }: Projec
           </button>
 
           <div className="text-center mb-10">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mx-auto mb-4">
               <Sparkles className="h-7 w-7 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold">New Project</h1>
+            <h1 className="font-display text-2xl font-bold">New Project</h1>
             <p className="text-sm text-muted mt-1">
               Just fill in the basics — we&apos;ll handle the rest.
             </p>
@@ -262,7 +262,7 @@ export default function ProjectForm({ initialData, isEditing, autoMode }: Projec
           Back to Dashboard
         </button>
 
-        <h1 className="text-2xl font-bold mb-8">
+        <h1 className="font-display text-2xl font-bold mb-8">
           {isEditing ? "Edit Project" : "New Project"}
         </h1>
 

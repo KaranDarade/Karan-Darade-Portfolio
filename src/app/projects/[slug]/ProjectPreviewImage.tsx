@@ -21,11 +21,11 @@ export default function ProjectPreviewImage({ imageUrl, title }: { imageUrl: str
 
   return (
     <div
-      className="relative aspect-video rounded-2xl overflow-hidden mb-12 border border-card-border shadow-lg"
+      className="glow-ring relative mb-10 aspect-video overflow-hidden rounded-2xl border border-card-border"
       style={{ background: `linear-gradient(135deg, ${c1}, ${c2})` }}
     >
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-white/90 text-4xl sm:text-5xl font-bold tracking-tight px-6 text-center leading-tight">
+        <span className="px-6 text-center text-3xl font-bold leading-tight tracking-tight text-white/90 sm:text-5xl">
           {title}
         </span>
       </div>
@@ -33,7 +33,7 @@ export default function ProjectPreviewImage({ imageUrl, title }: { imageUrl: str
         <img
           src={imageUrl}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
           onError={(e) => { e.currentTarget.style.display = "none"; }}
         />
       )}

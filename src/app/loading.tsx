@@ -1,11 +1,11 @@
 export default function Loading() {
   return (
-    <div className="relative z-10 flex flex-col items-center justify-center min-h-[60vh]">
+    <div className="relative z-10 flex min-h-[60vh] flex-col items-center justify-center">
       <div className="relative">
-        <div className="w-12 h-12 border-2 border-card-border rounded-full" />
-        <div className="absolute inset-0 w-12 h-12 border-2 border-t-primary rounded-full animate-spin" />
+        <div className="h-12 w-12 rounded-full border-2 border-card-border" />
+        <div className="absolute inset-0 h-12 w-12 animate-spin rounded-full border-2 border-t-primary" />
       </div>
-      <p className="text-muted mt-4 text-sm">Loading...</p>
+      <p className="mt-4 font-mono text-xs uppercase tracking-widest text-muted">Loading</p>
     </div>
   );
 }

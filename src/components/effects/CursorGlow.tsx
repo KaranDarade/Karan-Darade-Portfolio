@@ -41,7 +41,7 @@ export default function CursorGlow() {
         height: 600,
         transform: "translate(-50%, -50%)",
         background:
-          "radial-gradient(circle at center, rgba(139,92,246,0.08) 0%, rgba(139,92,246,0.04) 30%, transparent 70%)",
+          "radial-gradient(circle at center, rgba(124,108,246,0.06) 0%, rgba(91,157,255,0.03) 30%, transparent 70%)",
       }}
       aria-hidden="true"
     />

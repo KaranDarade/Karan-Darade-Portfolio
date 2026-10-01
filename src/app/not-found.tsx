@@ -1,28 +1,28 @@
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-4">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-fuchsia-500/10 rounded-full blur-3xl" />
+    <div className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-4 text-center">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-primary/10 blur-[110px]" />
+        <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-secondary/10 blur-[110px]" />
       </div>
-      <span className="text-[8rem] sm:text-[12rem] font-bold font-[family-name:var(--font-display)] leading-none bg-gradient-to-r from-violet-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent animate-pulse">
+
+      <span className="font-display text-gradient text-[6rem] font-black leading-none tracking-tight sm:text-[9rem]">
         404
       </span>
-      <h1 className="text-2xl sm:text-3xl font-bold font-[family-name:var(--font-display)] mt-4">
+      <h1 className="font-display mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
         Page Not Found
       </h1>
-      <p className="text-muted mt-2 text-center max-w-md">
+      <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
         The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </p>
       <Link
         href="/"
-        className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200 font-medium"
+        className="mt-8 inline-flex items-center gap-2 rounded-full border border-card-border bg-card px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-primary/40"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
+        <ArrowLeft className="h-4 w-4" />
         Back to Home
       </Link>
     </div>

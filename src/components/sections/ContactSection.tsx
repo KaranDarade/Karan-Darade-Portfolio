@@ -1,8 +1,9 @@
 "use client";
 
-import { Mail, MapPin, Phone, Send, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import AnimatedSection from "@/components/providers/AnimatedSection";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const contactInfo = [
   { icon: Mail, label: "Email", value: "daradekaran123@gmail.com", href: "mailto:daradekaran123@gmail.com" },
@@ -17,36 +18,20 @@ const socialLinks = [
 
 export default function ContactSection() {
   return (
-    <AnimatedSection id="contact" className="py-20 sm:py-28 relative overflow-hidden scroll-mt-16">
-      <div className="absolute top-1/3 left-0 w-72 h-72 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none" />
+    <AnimatedSection id="contact" className="relative scroll-mt-16 py-20 sm:py-24">
+      <div className="pointer-events-none absolute left-0 top-1/3 h-72 w-72 rounded-full bg-primary/[0.05] blur-[110px]" />
+      <div className="pointer-events-none absolute bottom-1/4 right-0 h-80 w-80 rounded-full bg-secondary/[0.05] blur-[110px]" />
 
-      <div className="absolute top-16 right-12 w-3 h-3 border border-violet-400/20 rotate-45 animate-drift" />
-      <div className="absolute bottom-24 left-1/4 w-4 h-4 border-2 border-fuchsia-500/10 rounded-full animate-float-delayed" style={{ animationDelay: "1.2s" }} />
-      <div className="absolute top-1/3 right-1/4 w-2 h-2 rounded-full bg-fuchsia-400/20 animate-pulse-soft" />
-      <div className="absolute bottom-1/3 left-12 w-4 h-4 border border-primary/10 skew-x-12 animate-drift" style={{ animationDelay: "2.5s" }} />
-      <div className="absolute top-2/3 left-1/3 w-3 h-3 bg-violet-400/15 rotate-45 animate-float-delayed" style={{ animationDelay: "0.5s" }} />
-      <div className="absolute bottom-16 right-1/4 w-1.5 h-1.5 rounded-full bg-violet-400/20 animate-pulse-soft" style={{ animationDelay: "1.8s" }} />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Contact"
+          title="Let's"
+          accent="Connect"
+          description="Have a project in mind or just want to say hi? Reach out through any of the channels below."
+        />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16 relative">
-          <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-20 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-          <p className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
-            Contact
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Let&apos;s{" "}
-            <span className="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent">
-              Connect
-            </span>
-          </h2>
-          <p className="mt-4 text-muted max-w-2xl mx-auto">
-            Have a project in mind or just want to say hi? Reach out through any of the channels below.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className="lg:col-span-2 space-y-4">
+        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="space-y-4 lg:col-span-2">
             {contactInfo.map((item) => {
               const Wrapper = item.href ? "a" : "div";
               const wrapperProps = item.href ? { href: item.href, target: "_blank", rel: "noopener noreferrer" } : {};
@@ -55,16 +40,16 @@ export default function ContactSection() {
                 <Wrapper
                   key={item.label}
                   {...wrapperProps}
-                  className="flex items-center gap-4 p-5 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
+                  className="group flex items-center gap-4 rounded-2xl border border-card-border bg-card p-5 transition-colors duration-200 hover:border-primary/35"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-fuchsia-500/10 flex items-center justify-center group-hover:from-primary/20 group-hover:to-fuchsia-500/20 transition-colors">
-                    <item.icon className="h-5 w-5 text-primary" />
+                  <div className="grid h-12 w-12 place-items-center rounded-xl border border-card-border bg-accent text-primary transition-colors group-hover:border-primary/30">
+                    <item.icon className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs text-muted">{item.label}</p>
-                    <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{item.value}</p>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-muted">{item.label}</p>
+                    <p className="mt-0.5 text-sm font-medium text-foreground transition-colors group-hover:text-primary">{item.value}</p>
                   </div>
-                  {item.href && <ArrowUpRight className="h-4 w-4 text-muted group-hover:text-primary transition-colors" />}
+                  {item.href && <ArrowUpRight className="h-4 w-4 text-muted transition-colors group-hover:text-primary" />}
                 </Wrapper>
               );
             })}
@@ -77,30 +62,28 @@ export default function ContactSection() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-5 rounded-xl bg-card border border-card-border hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 group"
+                className="group flex items-center gap-4 rounded-2xl border border-card-border bg-card p-5 transition-colors duration-200 hover:border-primary/35"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-fuchsia-500/10 flex items-center justify-center group-hover:from-primary/20 group-hover:to-fuchsia-500/20 transition-colors">
-                  <link.icon className="h-5 w-5 text-primary" />
+                <div className="grid h-12 w-12 place-items-center rounded-xl border border-card-border bg-accent text-primary transition-colors group-hover:border-primary/30">
+                  <link.icon className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs text-muted">{link.label}</p>
-                  <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{link.username}</p>
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted">{link.label}</p>
+                  <p className="mt-0.5 text-sm font-medium text-foreground transition-colors group-hover:text-primary">{link.username}</p>
                 </div>
-                <span className="text-[10px] text-muted bg-accent px-2 py-0.5 rounded-full">{link.stats}</span>
+                <span className="rounded-full border border-card-border bg-accent px-2 py-0.5 font-mono text-[10px] text-muted">{link.stats}</span>
               </a>
             ))}
 
-            <div className="gradient-border rounded-xl mt-4">
-              <div className="p-5 rounded-xl bg-card">
-                <Send className="h-5 w-5 text-primary mb-2" />
-                <p className="text-sm text-muted mb-1">Prefer email?</p>
-                <a
-                  href="mailto:daradekaran123@gmail.com"
-                  className="text-base font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-                >
-                  daradekaran123@gmail.com
-                </a>
-              </div>
+            <div className="rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 p-5">
+              <Mail className="mb-3 h-5 w-5 text-primary" />
+              <p className="text-sm text-muted">Prefer email?</p>
+              <a
+                href="mailto:daradekaran123@gmail.com"
+                className="mt-1 inline-block break-all text-sm font-semibold text-gradient hover:opacity-80"
+              >
+                daradekaran123@gmail.com
+              </a>
             </div>
           </div>
         </div>
