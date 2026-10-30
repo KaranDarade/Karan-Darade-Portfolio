@@ -279,6 +279,12 @@ main {
   inherits: false;
 }
 
+/* Focus visible indicators for keyboard accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-shine,
   .animate-drift,
@@ -290,5 +296,11 @@ main {
   .marquee-track,
   .gradient-border::before {
     animation: none !important;
+  }
+
+  piix-sprite,
+  piix-pal {
+    animation: none !important;
+    transition: none !important;
   }
 }

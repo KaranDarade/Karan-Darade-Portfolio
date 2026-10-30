@@ -4,6 +4,7 @@ import { ArrowDown, ExternalLink, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { scrollToSection } from "@/components/providers/AnimatedSection";
+import PiixCompanion from "@/components/ui/PiixCompanion";
 
 const marqueeItems = [
   "✦ Design", "✦ Build", "✦ Deploy", "✦ Repeat",
@@ -151,8 +152,19 @@ export default function Hero() {
                 />
               </div>
             </div>
+            <div
+              className="absolute -right-2 top-2 z-20 sm:-right-4 sm:top-4"
+              aria-label="Interactive robot companion"
+            >
+              <div className="group/companion relative flex items-center gap-1.5 rounded-full border border-card-border/80 bg-background/85 px-2 py-1 shadow-lg shadow-primary/10 backdrop-blur-xl transition-all duration-300 hover:border-primary/50 hover:bg-background hover:scale-105">
+                <PiixCompanion name="robo" size={32} />
+                <span className="hidden pr-1 font-mono text-[10px] tracking-wider text-muted/80 transition-colors group-hover/companion:text-primary sm:inline">
+                  hi!
+                </span>
+              </div>
+            </div>
             <a
-              href="https://drive.google.com/file/d/1tJ40H4v1OMwxZi8tGo4AyLW9bkaRDgnA/view"
+              href="/Karan_Darade_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="absolute -bottom-4 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-primary/25 bg-background/80 px-5 py-2 text-xs font-semibold text-foreground shadow-lg shadow-primary/10 backdrop-blur-xl transition-all duration-200 hover:border-primary/50 hover:bg-background active:scale-95"

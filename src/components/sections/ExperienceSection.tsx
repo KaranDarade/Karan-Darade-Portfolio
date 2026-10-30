@@ -7,17 +7,17 @@ import SectionHeading from "@/components/ui/SectionHeading";
 const experience = [
   {
     company: "Sachitech",
-    role: "Frontend Developer Intern",
-    period: "Feb 2026 – Jul 2026",
+    role: "Full-Stack Developer Intern",
+    period: "Mar 2026 – Aug 2026",
     location: "Nashik, Maharashtra",
     bullets: [
-      "Developed web applications using React, JavaScript, and REST APIs while following structured workflows and collaborating with the development team.",
+      "Developed web applications using React, JavaScript, and REST APIs while following structured workflows and collaborating with the development team. Collaborated on an online Grocery delivery platform featuring product browsing, cart management, order processing, and responsive user workflows.",
     ],
   },
   {
     company: "PlanetEyeFarm",
     role: "Blockchain Intern",
-    period: "Sep 2025 – Nov 2025",
+    period: "Oct 2025 – Jan 2026",
     location: "Nashik, Maharashtra",
     bullets: [
       "Researched blockchain applications for agricultural data and developed prototypes for recording and verifying farm data.",
@@ -27,7 +27,7 @@ const experience = [
   {
     company: "Privan Sports Analyzer",
     role: "Sports Data Analyst",
-    period: "Mar 2025 – Aug 2025",
+    period: "Feb 2025 – Jul 2025",
     location: "Nashik, Maharashtra",
     bullets: [
       "Analyzed sports game footage using sports analysis software, tagging and coding key events, player actions, movements, and game situations according to defined guidelines.",

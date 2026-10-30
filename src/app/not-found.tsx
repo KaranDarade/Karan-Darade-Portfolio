@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import PiixCompanion from "@/components/ui/PiixCompanion";
 
 export default function NotFound() {
   return (
@@ -7,6 +8,10 @@ export default function NotFound() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-primary/10 blur-[110px]" />
         <div className="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-secondary/10 blur-[110px]" />
+      </div>
+
+      <div className="mb-2 flex items-center justify-center">
+        <PiixCompanion name="alien" size={52} title="Lost in space" />
       </div>
 
       <span className="font-display text-gradient text-[6rem] font-black leading-none tracking-tight sm:text-[9rem]">

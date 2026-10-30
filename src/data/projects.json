@@ -1,5 +1,43 @@
 [
   {
+    "id": "proj_oneclick_jobs",
+    "title": "OneClick Jobs",
+    "slug": "oneclick-jobs",
+    "description": "An India-focused tech job discovery and multi-ATS aggregation platform featuring instant in-memory resume parsing, transparent deterministic compatibility scoring, and AI-powered career insights.",
+    "detailedDescription": "OneClick Jobs solves modern tech job seeking across India by aggregating directly from company applicant tracking systems (Greenhouse, Lever, Ashby) to eliminate recruiter spam, stale postings, and duplicate agency listings. The platform features a privacy-by-design architecture where candidate resumes (PDFs) are parsed transiently in server memory using unpdf and immediately discarded without storing any PII. It calculates candidate match percentages through a transparent, 100% auditable deterministic formula evaluating required skills, preferred skills, experience alignment, and work arrangements with visible explanations. Integrated with Google Gemini 2.0 Flash for recruiter-perspective fit summaries, interview talking points, and tailored cover letter starters, the system features zero-lockin resilience with robust deterministic fallbacks, canonical location and skill normalization across major Indian tech hubs, and three-tier hierarchical deduplication.",
+    "techStack": [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Turbopack",
+      "unpdf",
+      "Zod",
+      "Lucide React",
+      "Vitest",
+      "Vercel"
+    ],
+    "features": [
+      "Direct multi-ATS job aggregation from Greenhouse, Lever, and Ashby",
+      "Multi-source search across 400+ verified engineering, product, and data positions",
+      "Privacy-first transient in-memory resume PDF parsing with unpdf (zero PII stored)",
+      "Deterministic 0–100 compatibility scoring formula with auditable match breakdowns",
+      "AI-powered career assistant delivering recruiter fit summaries and interview talking points",
+      "Tailored 1-click cover letter starter addressed to specific hiring teams",
+      "Canonical normalization for Indian locations (Bengaluru, Mumbai, Pune, NCR) and skills",
+      "Three-tier hierarchical deduplication engine (composite ID, canonical URL, entity fingerprint)",
+      "Failure-isolated external provider queries with strict 6s timeouts via Promise.allSettled",
+      "Browser-native bookmarks with localStorage and optional Supabase cloud sync",
+      "Live diagnostic telemetry and health monitor at /api/health"
+    ],
+    "githubUrl": "https://github.com/KaranDarade/OneClick-Jobs",
+    "deploymentUrl": "https://oneclickjobs-beta.vercel.app",
+    "imageUrl": "/projects/oneclick-jobs.png",
+    "featured": true,
+    "order": 1,
+    "createdAt": "2026-10-13T11:30:59.000Z"
+  },
+  {
     "id": "proj_agent_board",
     "title": "Agent Board",
     "slug": "agent-board",
@@ -33,7 +71,7 @@
     "deploymentUrl": "https://agent-board-ecru.vercel.app",
     "imageUrl": "/projects/agent-board.png",
     "featured": true,
-    "order": 1,
+    "order": 2,
     "createdAt": "2026-09-18T00:00:00.000Z"
   },
   {
@@ -74,7 +112,7 @@
     "deploymentUrl": "https://xtreme-wordle.vercel.app",
     "imageUrl": "/projects/wordle-arena.png",
     "featured": true,
-    "order": 2,
+    "order": 3,
     "createdAt": "2026-09-24T00:00:00.000Z"
   },
   {
@@ -111,7 +149,7 @@
     "deploymentUrl": "https://react-dashboard-nextgenesis.vercel.app/login",
     "imageUrl": "/projects/storeflow.png",
     "featured": true,
-    "order": 3,
+    "order": 4,
     "createdAt": "2026-09-28T00:00:00.000Z"
   },
   {
@@ -149,7 +187,7 @@
     "deploymentUrl": "https://stackcraft-blog.vercel.app/",
     "imageUrl": "/projects/stackcraft-blog.png",
     "featured": true,
-    "order": 7,
+    "order": 5,
     "createdAt": "2025-04-01T00:00:00.000Z"
   },
   {
@@ -190,7 +228,7 @@
     "deploymentUrl": "https://grocery-shopping-site-frontend.vercel.app/",
     "imageUrl": "/projects/grocery-shopping-site.png",
     "featured": false,
-    "order": 0,
+    "order": 6,
     "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
@@ -234,7 +272,7 @@
     "deploymentUrl": "https://pollcastweb-production.up.railway.app/",
     "imageUrl": "/projects/pollcast.png",
     "featured": false,
-    "order": 0,
+    "order": 7,
     "id": "proj_pollcast",
     "createdAt": "2026-07-04T00:00:00.000Z"
   },
@@ -265,7 +303,7 @@
     "deploymentUrl": "https://erp-system-brown-one.vercel.app/",
     "imageUrl": "/projects/erp-system.png",
     "featured": true,
-    "order": 9,
+    "order": 8,
     "id": "mqfq9hlpuqhxmk2ifj",
     "createdAt": "2026-06-15T21:30:56.222Z"
   },
@@ -296,7 +334,7 @@
     "deploymentUrl": "https://ultima-landing-page-gilt.vercel.app/",
     "imageUrl": "/projects/ultima-creative-studio.png",
     "featured": true,
-    "order": 4,
+    "order": 9,
     "createdAt": "2025-01-15T00:00:00.000Z"
   },
   {
@@ -325,7 +363,7 @@
     "deploymentUrl": "https://3-d-portfolio-jade-delta.vercel.app/",
     "imageUrl": "/projects/3d-portfolio.png",
     "featured": true,
-    "order": 5,
+    "order": 10,
     "createdAt": "2025-02-10T00:00:00.000Z"
   },
   {
@@ -354,7 +392,7 @@
     "deploymentUrl": "https://adsolence.vercel.app/",
     "imageUrl": "/projects/adsolence-digital-agency.png",
     "featured": true,
-    "order": 6,
+    "order": 11,
     "createdAt": "2025-03-05T00:00:00.000Z"
   },
   {
@@ -391,7 +429,7 @@
     "deploymentUrl": "https://groceries-fresh.netlify.app/",
     "imageUrl": "/projects/groceries-organic-store.png",
     "featured": true,
-    "order": 8,
+    "order": 12,
     "createdAt": "2025-04-20T00:00:00.000Z"
   },
   {
@@ -422,7 +460,7 @@
     "deploymentUrl": "https://vertex-studio-alpha.vercel.app/",
     "imageUrl": "/projects/vertex-studio.png",
     "featured": false,
-    "order": 0,
+    "order": 13,
     "createdAt": "2025-05-15T00:00:00.000Z"
   }
 ]
